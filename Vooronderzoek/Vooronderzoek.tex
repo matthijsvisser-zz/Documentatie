@@ -17,16 +17,14 @@
 \newpage
 
 \section{Inleiding}
-In deze documentatie word er vooronderzoek gedaan naar de opdracht A van de minor Robotica. Opdracht A betreft het ontwikkelen van de besturing en simulatie van een hexapod robot. Het voornaamste doel van de opdracht is om een koppeling maken tussen een simulatie model en de hardware van de hexapod. Daarnaast word onderzocht of er nog extra functionaliteiten kunnen worden toegevoegd aan de robot.
+In deze documentatie word er vooronderzoek gedaan naar de opdracht A van de minor Robotica. Opdracht A betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.
 
-Probleemstelling
-In de huidige situatie wordt de robot handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. 
+In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. De wens is dat de hexapod zich uiteindelijk autonoom kan gedragen. Daarnaast wordt er onderzoek gedaan naar methodes om het gedrag en de beweging van de robot te verbeteren.
 
-Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te cree\"eren. 
+Het voornaamste doel van de opdracht is om een koppeling te maken tussen een simulatie model en de hardware van de hexapod. Daarnaast word onderzocht of er nog extra functionaliteiten kunnen worden toegevoegd aan de robot.
 
-De reden hiervan is dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware te werken. 
+Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofdvraag en deelvragen. Gevolgd door de specificaties en de implementatie van het ontwerp.
 
-Door een koppeling te maken tussen het simulatiemodel en de hardware van de robot...
 
 \begin{itemize}
 \setlength\itemsep{0em}
@@ -38,7 +36,37 @@ Door een koppeling te maken tussen het simulatiemodel en de hardware van de robo
 \item Uitleg opbouw van verslag
 \end{itemize}
 
+\newpage
+
 \section{Opdrachtdefinitie}
+De hexapod is momenteel alleen te besturen met behulp van een afstandbediening. De huidige besturingssoftware op de robot is niet in staat naast de afstandbediening om externe commando's te verwerken. Daarnaast kent het in de huidige toestand geen vorm van intelligentie. Zo heeft de robot momenteel geen besef van wat zich in zijn directe omgeving bevindt.
+
+Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen. De reden hiervan is dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware van de robot te werken. 
+Door een real-time koppeling te maken tussen het simulatiemodel en de hardware van de robot is het mogelijk in staat om meer informatie te verzamelen om de intelligentie te verbeteren.
+
+Het uiteindelijke doel is om in een simulatieomgeving de bewegingseigenschappen van de robot te optimaliseren. Om deze software vervolgens te testen op het echte model. Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. De robot moet daarnaast in staat kunnen zijn om fouten de detecteren. De onderlinge poten zouden niet met elkaar in contact moeten komen.
+
+\textbf{Hoofdvraag\\}
+De hoofdvraag van het onderzoek betreft:
+Hoe wordt een ontwikkelingsomgeving opgezet waarbij een robot aan een simulatie gekoppeld wordt?
+
+\textbf{Deelvragen\\}
+De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Wat is een hexapod?
+\item Welke draadloze techniek kan het beste worden toegepast als communicatiemiddel?
+\item Wat is het meest geschikte softwarepakket om een model te simuleren met de mogelijkheid tot programmeren?
+\item Wat zijn effici\"ente looppatronen voor een hexapod op verschillende oppervlakken?
+\item Is een hexapod in staat om zich voort te bewegen met één of meerdere beperkingen aan zijn poten?
+\item Zijn er effici\"entere looppatronen bij een zwaardere belasting van de hexapod?
+\item Zijn er verschillen tussen de simulatie en de werkelijkheid?
+\item Hoe detecteert de hexapod dat er een onmogelijke bewegingsactie uitgevoerd moet worden?
+\item Hoe verkent de hexapod zijn omgeving en onderscheid deze objecten van elkaar?
+\item Kan de robot zich voortbewegen ongeacht de orie\"entatie?
+\end{itemize}
+
+
 \begin{itemize}
 \setlength\itemsep{0em}
 \item Context van het praktijkprobleem 
