@@ -9,11 +9,12 @@
 \author{I. van Alphen, S. van Doesburg, E.  Salsbach, M. Visser}
 \begin{document}
 \maketitle
+\newpage
 
 \tableofcontents
+\newpage
 
 \section{Samenvatting}
-
 \newpage
 
 \section{Inleiding}
@@ -89,61 +90,49 @@ De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
 
 \section{Ontwerp}
 
+\newpage
 
+\iffalse % commentaar sectie
 
 \section{Resultaten}
-
-
 \section{Discussie en resultaten}
-
 \section{Conclusies}
-
-\section{Conclusies}
-
 \section{Aanbevelingen}
-
-
-
 
 \section{Firmware robot}
 Om de robot te besturen is er in het standaard model gebruik gemaakt van de Arbotix robocontroller. 
-testtest
-
 Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de grond af aan eigen software te schrijven.
 
 \section{Simulatie robot}
-gelukt
-
 \section{Hard- en software koppeling}
-
-
 \section{Geen boven en onderkant}
-
 \section{Interacteren geluid}
-
 \section{Uitwijk systeem}
-
 \section{Machine learning}
+
+\fi
 
 \section{Specificaties}
 
-Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen taken die noodzakelijk of gewenst zijn. De noodzakelijke functies moeten in ieder geval geïmplementeerd worden, terwijl de overige functionaliteiten verwerkt mogen worden, wat zeer afhangt van de tijdrestrictie.
+Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
 
-\subsection{Noodzakeiljke specificaties}
-Het primair doel van dit project is om een verbinding te creëren tussen een fysieke robot spin en een computer model. Hierbij moet de spin aangestuurd kunnen worden door het model van de spin via een simulatieprogramma. Ook moeten veranderingen aan de stand van de poten terug te zien zijn aan het model. De fysieke spin wordt beschikbaar gesteld door de Hogeschool van Amsterdam, maar het is echter wel nog nodig om de spin te modelleren.
-Om ervoor te zorgen dat de bewegingen van de spin geen nadelige effecten heeft, zoals poten die tegen elkaar kunnen opbotsen of eventueel bekabeling dat beschadigd kan raken, is het nodig om de maximale bewegingsvrijheid per gewricht in te stellen.
+\subsection{Noodzakeljke specificaties}
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. Hierbij moet de hexapod aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Daarnaast moet het extern te besturen zijn met behulp van een computer. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. %(Vind deze zin niet nodig ^M)De fysieke hexapod wordt beschikbaar gesteld door de Hogeschool van Amsterdam, maar het is echter wel nog nodig om de spin te modelleren.
+Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
 
 \subsection{Gewenste specificaties}
-Er zijn een veel mogelijkheden wat betreft functies die geïmplementeerd kunnen worden. In deze subsectie zijn een aantal functies opgesomd die mogelijk geïmplementeerd kunnen worden, maar die niet noodzakelijk zijn voor het eindproject
+Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implementeerd kunnen worden. In deze subsectie zijn een aantal functionaliteiten opgesomd die mogelijk ge\"implementeerd kunnen worden, maar die niet noodzakelijk zijn voor het uiteindelijke eindproduct.
 
 \begin{itemize}
-\item De spin is er van bewust als hij omgekeerd is en kan zijn poten daarop aanpassen 
-\item The spin kan zijn poten intrekken en uitstrekken, zodat het eenvoudig opgeborgen en opgezet kan worden.
-\item De spin kan muren en objecten detecteren en uitwijken.
-\item De spin herkent een of meerdere defecte poten en past zijn looppatroon aan om dit te accommoderen
-\item The spin past zijn looppatroon aan afhankelijk van het gewicht van eventuele ballast.
+\setlength\itemsep{0em}
+\item De hexapod is er zich van bewust als hij ondersteboven is geplaatst, en kan de stand van zijn poten daarop aanpassen. Wanneer de hexapod horizontaal gepositioneerd wordt, dan zorgt dit systeem er voor dat alle poten op of richting de ondergrond zijn geplaatst.
+\item Is in staat om zijn poten in- en uit te strekken, zodat het eenvoudig opgeborgen en opgezet kan worden.
+\item De spin kan muren en/of objecten detecteren en zijn looproute hier op aanpassen. 
+\item Met een beperking aan een of meerdere poten is het in staat om het standaard looppatroon aan te passen.
+\item Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht van de eventuele ballast.
 \end{itemize}
 
+\newpage
 
 \section{Bibliografie}
 \bibliography{references}
