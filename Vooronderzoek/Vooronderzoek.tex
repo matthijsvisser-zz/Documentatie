@@ -9,45 +9,132 @@
 \author{I. van Alphen, S. van Doesburg, E.  Salsbach, M. Visser}
 \begin{document}
 \maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\iffalse % Commentaar sectie
+\section{Samenvatting}
+Not in use yet
+\newpage
+\fi
 
 \section{Inleiding}
-In deze documentatie word er onderzoek gedaan naar de opdracht van opdracht A van de minor Robotica. Opdracht A betreft de besturing en simulatie van een hexapod robot. Het voornaamste doel van de opdracht is om een koppeling maken tussen een simulatie model. Daarnaast...
+In deze documentatie wordt er vooronderzoek gedaan naar de opdracht A van de minor Robotica. Opdracht A betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten}
+
+In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. De wens is dat de hexapod zich uiteindelijk autonoom kan gedragen. Daarnaast wordt er onderzoek gedaan naar methodes om het gedrag en de beweging van de robot te verbeteren.
+
+Het voornaamste doel van de opdracht is om een koppeling te maken tussen een simulatie model en de hardware van de hexapod. Daarnaast word onderzocht of er nog functionaliteiten kunnen worden toegevoegd aan de robot.
+
+Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofdvraag en deelvragen. Gevolgd door de specificaties en de implementatie van het ontwerp.
+
+\newpage
+
+\section{Opdrachtdefinitie}
+De hexapod is momenteel alleen te besturen met behulp van een afstandbediening. De huidige besturingssoftware op de robot is niet in staat naast de afstandbediening om externe commando's te verwerken. Daarnaast kent het in de huidige toestand geen vorm van intelligentie. Zo heeft de robot momenteel geen besef van wat zich in zijn directe omgeving bevindt.
+
+Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen. De reden hiervan is dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware van de robot te werken. 
+Door een real-time koppeling te maken tussen het simulatiemodel en de hardware van de robot is het mogelijk in staat om meer informatie te verzamelen om de intelligentie te verbeteren.
+
+Het uiteindelijke doel is om in een simulatieomgeving de bewegingseigenschappen van de robot te optimaliseren. Om deze software vervolgens te testen op het echte model. Er moet dus onderzocht worden hoe een ontwikkelingsomgeving opgezet kan worden waarbij er een koppeling is tussen een simulatie en de robot zelf. Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. Om beschadiging te voorkomen moet het in staat kunnen zijn om fouten te detecteren. De onderlinge poten zouden niet met elkaar in contact moeten komen. Het onderzoeken van het gedrag van een hexapod is van belang om uiteindelijk de hexapod zelf lerende functies te geven.
+\newpage
+
+\iffalse %commentaar sectie
+\textbf{Hoofdvraag\\}
+De hoofdvraag van het onderzoek betreft:
+Hoe wordt een ontwikkelingsomgeving opgezet waarbij een robot aan een simulatie gekoppeld wordt?
+
+\textbf{Deelvragen\\}
+De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Wat is een hexapod?
+\item Welke draadloze techniek kan het beste worden toegepast als communicatiemiddel?
+\item Wat zijn effici\"ente looppatronen voor een hexapod op verschillende oppervlakken?
+\item Is een hexapod in staat om zich voort te bewegen met één of meerdere beperkingen aan zijn poten?
+\item Zijn er effici\"entere looppatronen bij een zwaardere belasting van de hexapod?
+\item Zijn er verschillen tussen de simulatie en de werkelijkheid?
+\item Hoe detecteert de hexapod dat er een onmogelijke bewegingsactie uitgevoerd moet worden?
+\item Hoe verkent de hexapod zijn omgeving en onderscheid deze objecten van elkaar?
+\item Kan de robot zich voortbewegen ongeacht de orie\"entatie?
+\end{itemize}
+\fi
+
+\iffalse % commentaar sectie
+
+\section{Theoretisch kader}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Inhoudelijke verkenning, kennis benodigd voordat met het ontwerp gestart kan worden (o.a. normen en regelgeving)
+\item Relevante onderzoeksvragen worden hierin uitgewerkt 
+\item Welke literatuur en/of theorieën zijn relevant en wat betekent dit voor het ontwerp \item Overzicht van bestaande oplossingen van het probleem en waarom voldoen deze in dit specifieke geval wel/niet.
+\end{itemize}
+\newpage
+
+\section{Ontwerp}
+\newpage
+
+\section{Resultaten}
+\section{Discussie en resultaten}
+\section{Conclusies}
+\section{Aanbevelingen}
 
 \section{Onderzoeks opzet}
 Het project bestaat uit twee fases. De eerste fase heeft als doel de hexapot in de simulatie te verwerken en ervoor te zorgen dat er een verbinding is tussen de simulatie en de hexapot. 
 
 In de tweede fase zal er gekeken worden naar het schrijven en implementeren van zelflerende functies. Deze fase wordt gestart rond het begin van blok twee, dit vanwege de vakken die worden gegeven in dit blok.
 
-In het begin van fase een moet er gekeken worden naar welke software pakketten geschikt zijn voor de toepassingen waarvoor de hexapot gebruikt gaat worden. Het softwarepakket waarin de simulatie gedaan wordt moet beschikken over de mogelijkheid om te communiceren met de componenten van de hexapot. Hierbij moet er informatie verstuurd en ontvangen kunnen worden.
+In het begin van fase een zal er gekeken worden naar het software programma VREP. Vanwege de wensen van de opdrachtgever zal er gewerkt worden met dit programma en zullen andere softwarepakketten buiten beschouwen worden gelaten.  
 
-Daarnaast zal er in de eerste fase gekeken worden naar toepassingen die andere hebben bedacht voor de hexapot. Hieruit is wellicht inspiratie te halen voor handige toepassingen.
+Daarnaast zal er in de eerste fase gekeken worden naar toepassingen die andere hebben bedacht voor de hexapot. Hieruit is inspiratie te halen voor handige en leuke toepassingen.
 
 Om de verbinding te maken tussen robot en computer dienen er verschillende bronnen te worden geraadpleegd. Een groot deel van die bronnen zal worden voorzien door gebruik te maken van het internet. Verder zal kennis die in de les wordt opgedaan, worden toegepast en de boeken kunnen worden bekeken.
 
 In fase twee zullen vooral de lessen dienen als leidraad voor het ontwikkelen van de zelflerende functies.
 
-De hexapot is al fisiek aanwezig, wat het testen van geschreven code gemakkelijk maakt voor testen. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneerd. Tijdens het schrijven van de  code zal de hexapot daarom aanwezig zijn.
+De hexapot is al fisiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneerd. Tijdens het schrijven van de verschillende functies zal de hexapot fysiek aanwezig zijn om direct het resultaat te ondervinden.
 
 
 
 \section{Firmware robot}
 Om de robot te besturen is er in het standaard model gebruik gemaakt van de Arbotix robocontroller. 
-testtest
-
 Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de grond af aan eigen software te schrijven.
 
 \section{Simulatie robot}
-gelukt
-
 \section{Hard- en software koppeling}
-
-
 \section{Geen boven en onderkant}
-
 \section{Interacteren geluid}
-
 \section{Uitwijk systeem}
-
 \section{Machine learning}
+
+\fi
+
+\section{Specificaties}
+
+Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
+
+\subsection{Noodzakeljke specificaties}
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. Hierbij moet de hexapod aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Daarnaast moet het extern te besturen zijn met behulp van een computer. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. %(Vind deze zin niet nodig ^M)De fysieke hexapod wordt beschikbaar gesteld door de Hogeschool van Amsterdam, maar het is echter wel nog nodig om de spin te modelleren.
+Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
+
+\subsection{Gewenste specificaties}
+Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implementeerd kunnen worden. In deze subsectie zijn een aantal functionaliteiten opgesomd die mogelijk ge\"implementeerd kunnen worden, maar die niet noodzakelijk zijn voor het uiteindelijke eindproduct.
+
+\begin{itemize}
+\setlength\itemsep{0em}
+\item De hexapod is er zich van bewust als hij ondersteboven is geplaatst, en kan de stand van zijn poten daarop aanpassen. Wanneer de hexapod horizontaal gepositioneerd wordt, dan zorgt dit systeem er voor dat alle poten op of richting de ondergrond zijn geplaatst.
+\item Is in staat om zijn poten in- en uit te strekken, zodat het eenvoudig opgeborgen en opgezet kan worden.
+\item De spin kan muren en/of objecten detecteren en zijn looproute hier op aanpassen. 
+\item Met een beperking aan een of meerdere poten is het in staat om het standaard looppatroon aan te passen.
+\item Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht van de eventuele ballast.
+\end{itemize}
+
+\newpage
+
+\section{Bibliografie}
+\bibliography{references}
+\bibliographystyle{IEEEtran}
+
 
 \end{document}
