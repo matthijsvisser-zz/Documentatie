@@ -1,0 +1,32 @@
+Inleiding
+Opdracht A/B? -> Losse opdrachten gegeven bij de begeleider of door onszelf opgesplitst in twee onderzoeken?
+
+"De wens is om uiteindelijk autonoom te gedragen maar het voornaamste doel is om de koppeling en het simulatie model te maken."
+Worden hier de opdrachten A en B niet door elkaar gehaald? Wat voor boeit die wens als het geen doel van de opdracht is?
+
+Dit wordt pas duidelijk gemaakt bij opdrachtdefinitie: 
+"Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen."
+Mogelijk een duidelijke afsplitsing in het verslag tussen de twee opdrachten: voorbereiding en uiteindelijke AI.
+
+"Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. Om beschadiging te voorkomen moet het in staat kunnen zijn om fouten te detec- teren. De onderlinge poten zouden niet met elkaar in contact moeten komen."
+Mogelijk te veel gespecificeert voor een opdrachtdefinitie?
+
+
+
+
+
+
+SPECIFICATIES
+
+Specificaties zijn de doelen van het project. De eisen waar het aan moet voldoen. Meetbare eisen. oftewel: erg belangrijk om goed te defineren.
+
+"Een verbinding creeeren tussen een fysieke robot en simulatie model"
+Dit is erg 'ruim'. Wat houdt zo een verbinding in? Wat zijn de eisen van die verbinding (een of twee kanten op? afstand? bedraad of draadloos? minimale data snelheid? Latency? etc.)?
+Een simulatie model? Is een kubus (lichaam) met vier cylinders (poten) goed genoeg als simulatie model?
+
+"Daarnaast moet het extern te besturen zijn met behulp van een computer"
+Is aan en uit schakelen voldoende? Moet ik individuele servo kunnen besturen? Het doel van de robot kunnen wijzigen? Wat houdt 'een robot besturen' in?
+
+Hoeft niet in exacte getallen te zijn maar wel meetbaar zijn. e.g. Latency die geen of minimale invloed heeft op het gedrag van de robot. Simulatie model die realistisch genoeg is om direct toe te passsen op de echte robot met zo min mogelijk afwijking.
+
+Het blijft enigsinds vaag met "minimaal" of "zo min mogelijk" maar dit zijn termen die je in het onderzoek kan gebruiken om met de gegeven tijd, kennis en middelen met een goede oplossing te komen.
