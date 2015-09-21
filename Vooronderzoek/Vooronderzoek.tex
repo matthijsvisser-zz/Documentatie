@@ -96,7 +96,7 @@ Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de gro
 Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
 
 \subsection{Noodzakeljke specificaties}
-Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. Hierbij moet de hexapod aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Daarnaast moet het extern te besturen zijn met behulp van een computer. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. %(Vind deze zin niet nodig ^M)De fysieke hexapod wordt beschikbaar gesteld door de Hogeschool van Amsterdam, maar het is echter wel nog nodig om de spin te modelleren.
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. De datasnelheid van moet ook vastgesteld worden om de hexapod zo responsief mogelijk te maken. De hexapod moet aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Het model moet in ieder geval bestaan uit een body en 6 ledematen. Ieder ledemaat moet onderverdeeld worden in drie hoofdcomponenten die gescheiden zijn door gewrichten en ook door middel van een gewricht zijn verbonden aan de body. Verder moeten de afmetingen en verhoudingen tot een halve centimeter nauwkeurigheid overeenkomen met de hexapod.
 Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
 
 \subsection{Gewenste specificaties}
@@ -109,6 +109,7 @@ Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implemen
 \item De spin kan muren en/of objecten detecteren en zijn looproute hier op aanpassen. 
 \item Met een beperking aan een of meerdere poten is het in staat om het standaard looppatroon aan te passen.
 \item Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht van de eventuele ballast.
+\item Eventuele functionaliteiten zoals aan/uit, stand van poten en bewegingen via de computer kunnen activeren bijvoorbeeld via een console.
 \end{itemize}
 
 \newpage
