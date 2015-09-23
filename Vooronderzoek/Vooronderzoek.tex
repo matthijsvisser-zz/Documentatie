@@ -21,7 +21,7 @@ Not in use yet
 \fi
 
 \section{Inleiding}
-In deze documentatie wordt er vooronderzoek gedaan naar de opdracht A van de minor Robotica. Opdracht A betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten}
+In deze documentatie wordt er vooronderzoek gedaan naar de beroepsopdracht van de minor Robotica. Deze opdracht A betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten} De robot die gebruikt gaat worden is de PhantomX AX Hexapod van TrossenRobotics. \cite{PhantomX AX Hexapod Kit}.
 
 In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. Ter voorbereiding op het werken met kunstmatige intelligentie, is er voor gekozen om een simulatiemodel van de robot te ontwikkelen. Om praktische informatie te verzamelen is er een koppeling nodig tussen het simulatie model en de hardware van de robot. Met behulp van deze koppeling kan er onderzoek gedaan worden naar bijvoorbeeld effici\"ente looppatronen en zelf lerende functies.
 
@@ -32,10 +32,10 @@ Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofd
 \section{Opdrachtdefinitie}
 De hexapod is momenteel alleen te besturen met behulp van een afstandbediening. De huidige besturingssoftware op de robot is niet in staat naast de afstandbediening om externe commando's te verwerken. Daarnaast kent het in de huidige toestand geen vorm van intelligentie. Zo heeft de robot momenteel geen besef van wat zich in zijn directe omgeving bevindt.
 
-Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen. De reden hiervan is dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware van de robot te werken. 
+Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen. De redenen hiervoor zijn onder andere dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Hiernaast is het simuleren van de hexapod sneller dan real-time testen en is er minder kans op schade van het materieel. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware van de robot te werken. 
 Door een real-time koppeling te maken tussen het simulatiemodel en de hardware van de robot is het mogelijk in staat om meer informatie te verzamelen om de intelligentie te verbeteren.
 
-Het uiteindelijke doel is om in een simulatieomgeving de bewegingseigenschappen van de robot te optimaliseren. Om deze software vervolgens te testen op het echte model. Er moet dus onderzocht worden hoe een ontwikkelingsomgeving opgezet kan worden waarbij er een koppeling is tussen een simulatie en de robot zelf. Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. Om beschadiging te voorkomen moet het in staat kunnen zijn om fouten te detecteren. De onderlinge poten zouden niet met elkaar in contact moeten komen. Het onderzoeken van het gedrag van een hexapod is van belang om uiteindelijk de hexapod zelf lerende functies te geven.
+Het uiteindelijke doel is om in een simulatieomgeving de bewegingseigenschappen van de robot te optimaliseren om deze software vervolgens te testen op het echte model. Er moet dus onderzocht worden hoe een ontwikkelingsomgeving opgezet kan worden waarbij er een koppeling is tussen een simulatie en de robot zelf. Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. Om beschadiging te voorkomen moet het in staat kunnen zijn om fouten te detecteren. De onderlinge poten zouden niet met elkaar in contact moeten komen. Het onderzoeken van het gedrag van een hexapod is van belang om uiteindelijk de hexapod zelf lerende functies te geven.
 \newpage
 
 \iffalse %commentaar sectie
@@ -115,7 +115,7 @@ Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de gro
 Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
 
 \subsection{Noodzakeljke specificaties}
-Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. Hierbij moet de hexapod aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Daarnaast moet het extern te besturen zijn met behulp van een computer. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. %(Vind deze zin niet nodig ^M)De fysieke hexapod wordt beschikbaar gesteld door de Hogeschool van Amsterdam, maar het is echter wel nog nodig om de spin te modelleren.
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. De datasnelheid van moet ook vastgesteld worden om de hexapod zo responsief mogelijk te maken. De hexapod moet aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Het model moet in ieder geval bestaan uit een body en 6 ledematen. Ieder ledemaat moet onderverdeeld worden in drie hoofdcomponenten die gescheiden zijn door gewrichten en ook door middel van een gewricht zijn verbonden aan de body. Verder moeten de afmetingen en verhoudingen tot een halve centimeter nauwkeurigheid overeenkomen met de hexapod.
 Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
 
 \subsection{Gewenste specificaties}
@@ -128,7 +128,16 @@ Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implemen
 \item De spin kan muren en/of objecten detecteren en zijn looproute hier op aanpassen. 
 \item Met een beperking aan een of meerdere poten is het in staat om het standaard looppatroon aan te passen.
 \item Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht van de eventuele ballast.
+\item Eventuele functionaliteiten zoals aan/uit, stand van poten en bewegingen via de computer kunnen activeren bijvoorbeeld via een console.
 \end{itemize}
+
+\subsection{Testplan}
+% Of is het echt de bedoeling dat er per specificatie onderdeel uitgelegd wordt hoe die getest en beoordeeld wordt? %
+Om te kijken of de specificaties gehaald zijn wordt er als eerst gekeken naar de noodzakelijke specificaties. Deze specificaties zijn geprobeerd zo op te stellen dat deze in ieder geval haalbaar zijn. De haalbaarheid van de gewenste specificaties zijn voor ons lastig in te schatten omdat dit veelal buiten onze huidige kennis is en daarom kan het blijken dat een of meerdere specificaties te makkelijk of te lastig zijn opgesteld naar mate het onderzoek vordert. In dat geval zal er samen met de begeleider gekeken worden of er een alternatieve specificatie mogelijk is.
+Of de resultaten wel of niet voldoen aan de eisen kan in veel gevallen objectief beoordeeld worden door te kijken naar de exacte eisen en de bijbehorende resultaten. Echter is dit bij sommige specificaties niet mogelijk en zal dit met logische redenering en duidelijke uitleg worden ondersteund.
+Dit betekent dat de resultaten goed gedocumenteerd worden zodat het bij de conclusie duidelijk is wanneer de specificaties gehaald zijn. Bij twijfel of een specificatie gehaald is zal dit met de begeleider besproken worden.
+
+
 
 \newpage
 
