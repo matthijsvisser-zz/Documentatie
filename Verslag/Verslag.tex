@@ -61,8 +61,9 @@ In dit raamwerk is er onderzoek gedaan naar hoe een simulatieomgeving opgezet ka
 Deze opdracht betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten} De robot die gebruikt gaat worden is de PhantomX AX Hexapod van TrossenRobotics.
 
 In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. Ter voorbereiding op het werken met kunstmatige intelligentie, is er voor gekozen om een simulatiemodel van de robot te ontwikkelen. Om praktische informatie te verzamelen is er een koppeling nodig tussen het simulatie model en de hardware van de robot. Met behulp van deze koppeling kan er onderzoek gedaan worden naar bijvoorbeeld effici\"ente looppatronen en zelf lerende functies.
+De focus van dit verslag ligt bij het beantwoorden van de volgende vraag: Hoe wordt een ontwikkelingsomgeving opgezet waarbij een robot aan een simulatie gekoppeld wordt?
 
-Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofdvraag en deelvragen. Gevolgd door de specificaties en de implementatie van het ontwerp.
+Het verslag bestaat uit de volgende relevante hoofdstukken. In de Opdrachtdefinitie komen de probleemstelling en doelstelling aan de orde. In het theoretisch kader wordt er kort wat belangrijke voorkennis gepresenteerd. In het hoofdstuk Specificaties wordt er uitgebreid ingegaan op wat de belangrijkste targets van dit project, en zijn gerangschikt op basis van belang. In het hoofdstuk ontwerp is er een in-depth beschrijving over het model, de simulatieomgeving, de communicatie, het software en hardware. Vervolgens worden de resultaten gepresenteerd met een aantal aanmerkingen, tot slot zijn de conclusies en aanbevelingen te lezen aan het eind van het verslag.
 
 \newpage
 \section{Opdrachtdefinitie} 
@@ -94,17 +95,6 @@ De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
 \item Kan de robot zich voortbewegen ongeacht de orie\"entatie?
 \end{itemize}
 \fi
-
-\section{Onderzoeks opzet}
-Het project bestaat uit twee delen. Het eerste deel heeft als doel de hexapod in de simulatie te verwerken. Het tweede deel is ervoor zorgen dat er een verbinding ontstaat tussen de simulatie en de hexapod. 
-Vanwege de wensen van de opdrachtgever zal er gewerkt worden met het simulatie-programma V-REP en zullen andere softwarepakketten buiten beschouwing worden gelaten.  
-
-Daarnaast zal er in de eerste deel gekeken worden naar toepassingen die andere hebben bedacht voor de hexapod. Hieruit is inspiratie te halen voor handige en leuke toepassingen.
-
-Om de verbinding te maken tussen robot en computer dienen er verschillende bronnen te worden geraadpleegd. Een groot deel van die bronnen zal worden voorzien door gebruik te maken van het internet. Verder zal kennis die in de les wordt opgedaan, worden toegepast en de boeken kunnen worden bekeken.
-
-
-De hexapod is al fysiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneert. Tijdens het schrijven van de verschillende functies zal de hexapod fysiek aanwezig zijn om direct het resultaat te ondervinden.
 
 \newpage
 \section{Specificaties}
