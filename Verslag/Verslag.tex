@@ -147,27 +147,51 @@ Het ontwerp en de hexapod zijn onder te verdelen in verschillende delen: hard- e
 \subsection{Het ontwerpen in Inventor}
 Het model van de hexapod bestaat uit verschillende componenten. De body bestaat uit twee platen, en elke poot is onder te verdelen in drie componenten. Bovendien hoort bij elk gewricht een motor, in totaal 18 motoren. Als eerste zijn de afmetingen van de spin zo exact mogelijk opgemeten. Er is maar een poot opgemeten, en is in inventor vijf maal gedupliceerd. Het programma inventor geeft de mogelijkheid om met behulp van constraints het voorvlak van elk object te schetsen, en vervolgens uit te breiden tot een driedimensionaalobject. Ook met constraints, is het weer mogelijk om alle objecten bij elkaar te voegen.\\
 
-Het 3D model van de Robot is gemaakt in het programma Inventor. Hiervoor is gekozen omdat dit al bekend is en gratis te gebruiken voor studenten. Tevens kunnen Inventor bestanden gemakkelijk over worden gezet naar bestanden die leesbaar zijn voor de simulatie software.
+Het 3D model van de robot is gemaakt in het programma Inventor. Hiervoor is gekozen omdat dit al bekend is en gratis te gebruiken voor studenten. Tevens kunnen Inventor bestanden gemakkelijk over worden gezet naar bestanden die leesbaar zijn voor de simulatie software.
  
 Om de robot te reconstrueren in het tekenprogramma moet de robot gezien worden als losse onderdelen. Elk onderdeel moet apart opgemeten worden met alle hoeken en uitsparingen erbij.
 
 Het model is dan ontleed tot losse solids (onderdeel bestaande uit een stuk) die samen te voegen zijn tot de uiteindelijke assembly (model opgebouwd uit meerdere onderdelen).
-De servomotoren zijn gedowload van website voor motoren, maar de andere onderdelen zijn allemaal getekend. De poten bestaan uit drie sigmenten die worden verbonden met servomotor en tevens op dezelfde manier aan de main body vastzitten. \\
+De servomotoren zijn gedownload van website voor motoren, maar de andere onderdelen zijn allemaal getekend. De poten bestaan uit drie segmenten die worden verbonden door middel van servomotor en tevens op dezelfde manier aan de main body vastzitten. \\
 
 
 
 \subsection{De simulatieomgeving}
+\subsubsection{Importeren}
 Om het inventor bestand te importeren naar V-rep, is het eerst nodig om het model om te zetten naar het STL bestandstype.
 
-Het object wordt initieel in V-rep gezien als geheel object. Met 'divide selected shapes', is het mogelijk om objecten onder te verdelen in zo klein mogelijke stukken. Met behulp van gewrichten worden de 18 pootdelen en de main body met elkaar verbonden. Met de functie 'object/item position/orientation' zijn de objecten en gewrichten op de juiste positie gezet.
+Het object wordt initieel in V-rep gezien als geheel object. Met 'divide selected shapes', is het mogelijk om objecten onder te verdelen in zo klein mogelijke stukken. Vervolgens worden die gegroepeerd tot de volgende hoofdonderdelen:
+1. Main body + Motor 3(6x)
 
+2. Connector(6x)
+
+3. Motor 1 + 2(6x)
+
+4. Leg(6x)
+\subsubsection{Gewrichten}
+Dit is zo gekozen om ervoor te zorgen dat er steeds een geheel object gepositioneerd is tussen elk gewricht. Met behulp van gewrichten worden de 18 pootdelen en de main body dus met elkaar verbonden. Het is een vrij omslachtig proces om de gewrichten juist toe te voegen. Als allereerst, moet het betreffend hoofdobject geselecteerd worden. Deze wordt vervolgens gekopieerd en in een nieuwe scene geplaatst. In 'triangle edit mode', moet het onderdeel geselecteerd worden op de plek waar de joint uiteindelijk behoort te komen. Met 'invert selection', is het mogelijk om het ongewenste deel van het object te selecteren en te verwijderen. Via het menu kan er via 'add --> joint' een gewricht worden toegevoegd. In alle gevallen, maken wij gebruik van de 'revolute joint'. Met de functie 'object/item position/orientation' is het mogelijk de joint op exact de zelfde positie als het overgebleven object onderdeel te plaatsen. Daarbij moet eerst het gewricht geselecteerd worden, en daarna het overgebleven object. In de 'positions/translations' tab moeten de x, y en z co\"ordinaten worden overgenomen. In de 'Orientation/Rotations' map hoort het gewricht zijn juiste orientatie te krijgen. Dit kan door aanpassen van de alpha, beta of gamma waardes. Dit verschilt uiteraard per poot, gezien elke poot een andere orientatie heeft. Als het gewricht eenmaal in de juiste positie is, kan die door middel van kopieren en plakken weer in de originele scene geplaatst worden. De reden dat de 'triangle edit mode' niet gebruikt moet worden in de hoofdscene, is omdat het een grafisch zware operatie is. Bij 'scene object properties' kan overigens de diameter en lengte attributen worden aangepast. Bovendien kunnen de gewrichten daar doorzichtig worden gemaakt.
+
+\subsubsection{Convex en Mask}
 Omdat V-rep veel berekeningen moet doen bij het simuleren van complexe objecten, is het niet gunstig om te gaan simuleren met de objecten die ge\"importeerd zijn. Het is daarom ook nodig om de vorm van de objecten te vereenvoudigen. Dit kan met 'Morph selection into convex shapes', en dat zorgt er uiteindelijk voor dat simulaties vele malen sneller gaan. 
 Om het uiterlijk van de spin te behouden, worden de ge\"importeerde objecten gebruikt als mask. Om dit te bereiken, moet in het 'dynamic properties dialog' venster alles worden uitgevinkt. Dat zorgt ervoor dat het object niet met zijn omgeving reageert, en dat het niet dynamisch gesimuleerd wordt.
-De convex shapes daarentegen, moeten wel dynamisch zijn en kunnen reageren met de omgeving. Verder worden deze objecten doorzichtig gemaakt.
+De convex shapes daarentegen, moeten wel dynamisch zijn en kunnen reageren met de omgeving. Deze instellingen zijn te bereiken via de 'scene object properties' via de knop 'Show Dynamic Properties Dialog'. Om objecten te kunnen laten reageren met de omgeving, kan gebruikt gemaakt worden van 'local mask' of 'global mask'. Local mask is van toepassing op objecten die onder het zelfde hoofdobject staan, terwijl global mask geldt voor de objecten in de hele scene, zoals andere objecten, en de vloer. Of het object reageert of niet, hangt af van de geselecteerde blokjes. Als twee objecten maar ook een blokje gemeen hebben(aan- of uitgevinkt), dan ontstaat er interactie tussen de objecten bij collisie. Om ervoor te zorgen dat alle aanliggende onderdelen elkaar niet proberen af te stoten, moeten die niet met elkaar kunnen reageren. Zo zijn er bij Leg 1 bij local mask de eerste 9 vakjes aangevinkt, terwijl slechtst het laatste vakje aangevinkt is bij Motor 1.
+Verder moeten de afzonderlijke poten wel met elkaar kunnen reageren, omdat collisie tussen poten mogelijk moet zijn als dat niet voorkomen wordt. 
+Ook moeten alle convex shapes 'dynamically enabled' zijn om ze te kunnen simuleren, wat ook gebeurd in de 'dynamic properties dialog'. Hier kan de onder andere de massa en inertia ingesteld worden. De totale massa van de hexapod is ingesteld op 1.75kg, wat ongeveer in lijn is met de werkelijkheid.
+Bovendien worden de convex shapes doorzichtig gemaakt, via 
+'scene object properties --> common--> visibility'
+\subsubsection{Dummies}
+Voor de positie bepaling en het instellen van de doel co\"ordinaten bij invers kinematica wordt er gebruikt gemaakt van de zogeheten 'dummy-dummy link'. Hierbij worden er dummies bevestigd aan de tip van elke poot, de zogeheten tip dummies. De dummies worden op bijna de zelfde methode geplaatst op objecten als gewrichten. Bij dummies is het echter eenvoudiger om gelijk gebruik te maken van 'vertex edit mode', omdat je dan op de tip van de poot dummies kan plaatsen met de 'make dummies' knop. In dit specifiek geval, was het niet mogelijk om in het middelpunt een dummie toe te voegen, omdat daar geen vertice was. Dat probleem is opgelost door het toevoegen van dummies op de twee symmetrisch en nabijgelegen vertices. Daarna is een dummy geplaatst tussen deze twee dummies door het gemiddelde van de co\"ordinaten te berekenen.
 
-Voor de positie bepaling en het instellen van de doel co\"ordinaten bij invers kinematica wordt er gebruikt gemaakt van de zogeheten 'dummy-dummy link'. Hierbij worden er dummies bevestigd aan de tip van elke poot, de zogeheten Tip Dummies. Daarnaast worden er evenveel Target Dummies aangemaakt. Via het 'scene object properties dialog', kunnen de Tip Dummies gelinkt worden aan hun corresponderende Target Dummies. Wat belangrijk is voor het simuleren, is dat voor elk object de optie 'invers kinematics mode' aan staat.
+Naast de tip dummies worden er evenveel target dummies aangemaakt. Deze zitten initieel op exact de zelfde positie als de tip dummies. Kopieren en plakken van de tip dummies is de eenvoudigste manier om die aan te maken. Via het 'scene object properties dialog', kunnen de Tip Dummies gelinkt worden aan hun corresponderende Target Dummies. Wat belangrijk is voor het simuleren, is dat voor elk convex object de optie 'invers kinematics mode' aan staat.
+\subsubsection{Scene hierarchy}
+Het is belangrijk om de scene hierarchy goed te ordenen, omdat dit bepaald hoe objecten bewegen ten opzichte van elkaar. Leidraad voor een juiste hierarchy, is dat het hoofdobject bovenaanstaat. De objecten en gewrichten waar die direct meegekoppeld zijn, komen direct daaronder te staan.
 
-Het is belangrijk om de scene hierarchy goed te ordenen, omdat dit bepaald hoe objecten bewegen ten opzichte van elkaar. Dat betekent dat het hoofdobject(de body) bovenaan staat, en dat alle onderliggende objecten geplaatsen moeten worden onder het object waar het aan gekoppeld is. Dit geldt overigens voor de convex shapes. Alle convex shapes zijn overigens met elkaar verbonden door middel van de joints. De mask moet steeds geplaatst worden onder zijn eigen convex shape. Ook de dummies krijgen hun vaste plek. De Tip Dummy komt onder de tip van de poot terecht en de target dummy direct onder de body.
+Er wordt eerst naar de convex shapes gekeken, omdat die relevant zijn voor het simuleren. De convex body staat dus bovenop, en daaronder komen de eerste zes gewrichten te staan. Onder elke joint komt de convex connector te liggen. Onder iedere connector, zit de tweede joint, en onder die joints komen de links met de twee overige motoren. Als laatste komt de derde joint daaronder te staan, en de poot onder de derde joint. De dummies worden gebruikt voor de berekeningen. De tip dummies moeten de poten volgen, en moeten daarom direct onder de poten geplaatst worden. De target dummies worden onder het hoofdobject geplaatst.
+De mask moet visueel de convex shapes kunnen representeren, en moeten die kunnen volgen. Door de mask steeds onder zijn eigen convex object te plaatsen in de scene hierarchy, wordt dit effect bereikt.
+\subsubsection{physics engine}
+V-rep maakt gebruik van 4 verschillende physics engines. Dit zijn Bullet, ODE, Vortex en Newton. Van alle physics engines, bleek Bullet het soepelst te werken. Voor de simulaties is er dus gekozen om gebruik te maken van deze engine.
+\subsubsection{Inverse Kinematics}
+Om inverse kinematics te kunnen gebruiken, moet er nog een inverse kinematics groep worden aangemaakt. Dit gebeurd in de 'inverse kinematics' tab bij 'calculation modules'. In deze inverse kinematics groep worden enkel de tip dummies geplaatst en het daarbijhorend baseobject moet worden geselecteerd voor elke dummy, in dit geval de convex body.
 
 \newpage
 \subsection{Hardware}
