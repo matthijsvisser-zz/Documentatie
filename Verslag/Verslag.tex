@@ -1,0 +1,281 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[dutch]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{listings}
+\lstdefinestyle{cstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\graphicspath{ {./images/} }
+\title{Robotica: Hexapod}
+\author{I. van Alphen, S. van Doesburg, E.  Salsbach, M. Visser}
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\iffalse % Commentaar sectie
+\section{Samenvatting}
+Not in use yet
+\newpage
+\fi
+
+
+
+\section{Inleiding}
+Deze opdracht betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten} De robot die gebruikt gaat worden is de PhantomX AX Hexapod van TrossenRobotics. \cite{PhantomX AX Hexapod Kit}.
+
+In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. Ter voorbereiding op het werken met kunstmatige intelligentie, is er voor gekozen om een simulatiemodel van de robot te ontwikkelen. Om praktische informatie te verzamelen is er een koppeling nodig tussen het simulatie model en de hardware van de robot. Met behulp van deze koppeling kan er onderzoek gedaan worden naar bijvoorbeeld effici\"ente looppatronen en zelf lerende functies.
+
+Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofdvraag en deelvragen. Gevolgd door de specificaties en de implementatie van het ontwerp.
+
+\newpage
+
+\section{Opdrachtdefinitie} 
+De hexapod is momenteel alleen te besturen met behulp van een afstandbediening. De huidige besturingssoftware op de robot is niet in staat naast de afstandbediening om externe commando's te verwerken. Daarnaast kent het in de huidige toestand geen vorm van intelligentie. Zo heeft de robot momenteel geen besef van wat zich in zijn directe omgeving bevindt.
+
+Als voorbereiding op het werken met kunstmatige intelligentie op de robot, is er voor gekozen om een simulatiemodel voor en van de robot te ontwikkelen. De redenen hiervoor zijn onder andere dat er in een model oneindig veel verschillende situaties voor de robot gecree\"erd kunnen worden. Hiernaast is het simuleren van de hexapod sneller dan real-time testen en is er minder kans op schade van het materieel. Bovendien kan het vanuit financie\"el oogpunt in situaties nuttig zijn om niet met de echte hardware van de robot te werken. 
+Door een real-time koppeling te maken tussen het simulatiemodel en de hardware van de robot is het mogelijk in staat om meer informatie te verzamelen om de intelligentie te verbeteren.
+
+Het uiteindelijke doel is om in een simulatieomgeving de bewegingseigenschappen van de robot te optimaliseren om deze software vervolgens te testen op het echte model. Er moet dus onderzocht worden hoe een ontwikkelingsomgeving opgezet kan worden waarbij er een koppeling is tussen een simulatie en de robot zelf. Daarnaast moet de robot extern te besturen zijn met behulp van een computer. De robot en het simulatiemodel moeten de mogelijkheid hebben om de stand van de servomotoren real-time naar elkaar over te brengen. Om beschadiging te voorkomen moet het in staat kunnen zijn om fouten te detecteren. De onderlinge poten zouden niet met elkaar in contact moeten komen. Het onderzoeken van het gedrag van een hexapod is van belang om uiteindelijk de hexapod zelf lerende functies te geven.
+\newpage
+
+\iffalse %commentaar sectie
+\textbf{Hoofdvraag\\}
+De hoofdvraag van het onderzoek betreft:
+Hoe wordt een ontwikkelingsomgeving opgezet waarbij een robot aan een simulatie gekoppeld wordt?
+
+\textbf{Deelvragen\\}
+De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Wat is een hexapod?
+\item Welke draadloze techniek kan het beste worden toegepast als communicatiemiddel?
+\item Wat zijn effici\"ente looppatronen voor een hexapod op verschillende oppervlakken?
+\item Is een hexapod in staat om zich voort te bewegen met één of meerdere beperkingen aan zijn poten?
+\item Zijn er effici\"entere looppatronen bij een zwaardere belasting van de hexapod?
+\item Zijn er verschillen tussen de simulatie en de werkelijkheid?
+\item Hoe detecteert de hexapod dat er een onmogelijke bewegingsactie uitgevoerd moet worden?
+\item Hoe verkent de hexapod zijn omgeving en onderscheid deze objecten van elkaar?
+\item Kan de robot zich voortbewegen ongeacht de orie\"entatie?
+\end{itemize}
+\fi
+
+
+\section{Theoretisch kader}
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Inhoudelijke verkenning, kennis benodigd voordat met het ontwerp gestart kan worden (o.a. normen en regelgeving)
+\item Relevante onderzoeksvragen worden hierin uitgewerkt 
+\item Welke literatuur en/of theorieën zijn relevant en wat betekent dit voor het ontwerp \item Overzicht van bestaande oplossingen van het probleem en waarom voldoen deze in dit specifieke geval wel/niet.
+\end{itemize}
+\newpage
+
+\section{Specificaties}
+
+Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
+
+\subsection{Noodzakeljke specificaties}
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. De datasnelheid van moet ook vastgesteld worden om de hexapod zo responsief mogelijk te maken. De hexapod moet aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Het model moet in ieder geval bestaan uit een body en 6 ledematen. Ieder ledemaat moet onderverdeeld worden in drie hoofdcomponenten die gescheiden zijn door gewrichten en ook door middel van een gewricht zijn verbonden aan de body. Verder moeten de afmetingen en verhoudingen tot een halve centimeter nauwkeurigheid overeenkomen met de hexapod.
+Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
+
+\subsection{Gewenste specificaties}
+Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implementeerd kunnen worden. In deze subsectie zijn een aantal functionaliteiten opgesomd die mogelijk ge\"implementeerd kunnen worden, maar die niet noodzakelijk zijn voor het uiteindelijke eindproduct.
+
+\begin{itemize}
+\setlength\itemsep{0em}
+\item De hexapod is er zich van bewust als hij ondersteboven is geplaatst, en kan de stand van zijn poten daarop aanpassen. Wanneer de hexapod horizontaal gepositioneerd wordt, dan zorgt dit systeem er voor dat alle poten op of richting de ondergrond zijn geplaatst.
+\item Is in staat om zijn poten in- en uit te strekken, zodat het eenvoudig opgeborgen en opgezet kan worden.
+\item De spin kan muren en/of objecten detecteren en zijn looproute hier op aanpassen. 
+\item Met een beperking aan een of meerdere poten is het in staat om het standaard looppatroon aan te passen.
+\item Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht van de eventuele ballast.
+\item Eventuele functionaliteiten zoals aan/uit, stand van poten en bewegingen via de computer kunnen activeren bijvoorbeeld via een console.
+\end{itemize}
+
+\subsection{Testplan}
+% Of is het echt de bedoeling dat er per specificatie onderdeel uitgelegd wordt hoe die getest en beoordeeld wordt? %
+Om te kijken of de specificaties gehaald zijn wordt er als eerst gekeken naar de noodzakelijke specificaties. Deze specificaties zijn geprobeerd zo op te stellen dat deze in ieder geval haalbaar zijn. De haalbaarheid van de gewenste specificaties zijn voor lastig in te schatten omdat dit veelal buiten onze huidige kennis is en daarom kan het blijken dat een of meerdere specificaties te makkelijk of te lastig zijn opgesteld naar mate het onderzoek vordert. In dat geval zal er samen met de begeleider gekeken worden of er een alternatieve specificatie mogelijk is.
+Of de resultaten wel of niet voldoen aan de eisen kan in veel gevallen objectief beoordeeld worden door te kijken naar de exacte eisen en de bijbehorende resultaten. Echter is dit bij sommige specificaties niet mogelijk en zal dit met logische redenering en duidelijke uitleg worden ondersteund.
+Dit betekent dat de resultaten goed gedocumenteerd worden zodat het bij de conclusie duidelijk is wanneer de specificaties gehaald zijn. Bij twijfel of een specificatie gehaald is zal dit met de begeleider besproken worden.
+\newpage
+
+\section{Ontwerp}
+\subsection{Het ontwerpen in Inventor}
+Het model van de hexapod bestaat uit verschillende componenten. De body bestaat uit twee platen, en elke poot is onder te verdelen in drie componenten. Bovendien hoort bij elk gewricht een motor, in totaal 18 motoren. Als eerste zijn de afmetingen van de spin zo exact mogelijk opgemeten. Er is maar een poot opgemeten, en is in inventor vijf maal gedupliceerd. Het programma inventor geeft de mogelijkheid om met behulp van constraints het voorvlak van elk object te schetsen, en vervolgens uit te breiden tot een driedimensionaalobject. Ook met constraints, is het weer mogelijk om alle objecten bij elkaar te voegen.\\
+
+Het 3D model van de Robot is gemaakt in het programma Inventor. Hiervoor is gekozen omdat dit al bekend is en gratis te gebruiken voor studenten. Tevens kunnen Inventor bestanden gemakkelijk over worden gezet naar bestanden die leesbaar zijn voor de simulatie software.
+ 
+Om de robot te reconstrueren in het tekenprogramma moet de robot gezien worden als losse onderdelen. Elk onderdeel moet apart opgemeten worden met alle hoeken en uitsparingen erbij.
+
+Het model is dan ontleed tot losse solids (onderdeel bestaande uit een stuk) die samen te voegen zijn tot de uiteindelijke assembly (model opgebouwd uit meerdere onderdelen).
+De servomotoren zijn gedowload van website voor motoren, maar de andere onderdelen zijn allemaal getekend. De poten bestaan uit drie sigmenten die worden verbonden met servomotor en tevens op dezelfde manier aan de main body vastzitten. \\
+
+
+
+\subsection{De simulatieomgeving}
+Om het inventor bestand te importeren naar V-rep, is het eerst nodig om het model om te zetten naar het STL bestandstype.
+
+Het object wordt initieel in V-rep gezien als geheel object. Met 'divide selected shapes', is het mogelijk om objecten onder te verdelen in zo klein mogelijke stukken. Met behulp van gewrichten worden de 18 pootdelen en de main body met elkaar verbonden. Met de functie 'object/item position/orientation' zijn de objecten en gewrichten op de juiste positie gezet.
+
+Omdat V-rep veel berekeningen moet doen bij het simuleren van complexe objecten, is het niet gunstig om te gaan simuleren met de objecten die ge\"importeerd zijn. Het is daarom ook nodig om de vorm van de objecten te vereenvoudigen. Dit kan met 'Morph selection into convex shapes', en dat zorgt er uiteindelijk voor dat simulaties vele malen sneller gaan. 
+Om het uiterlijk van de spin te behouden, worden de ge\"importeerde objecten gebruikt als mask. Om dit te bereiken, moet in het 'dynamic properties dialog' venster alles worden uitgevinkt. Dat zorgt ervoor dat het object niet met zijn omgeving reageert, en dat het niet dynamisch gesimuleerd wordt.
+De convex shapes daarentegen, moeten wel dynamisch zijn en kunnen reageren met de omgeving. Verder worden deze objecten doorzichtig gemaakt.
+
+Voor de positie bepaling en het instellen van de doel co\"ordinaten bij invers kinematica wordt er gebruikt gemaakt van de zogeheten 'dummy-dummy link'. Hierbij worden er dummies bevestigd aan de tip van elke poot, de zogeheten Tip Dummies. Daarnaast worden er evenveel Target Dummies aangemaakt. Via het 'scene object properties dialog', kunnen de Tip Dummies gelinkt worden aan hun corresponderende Target Dummies. Wat belangrijk is voor het simuleren, is dat voor elk object de optie 'invers kinematics mode' aan staat.
+
+Het is belangrijk om de scene hierarchy goed te ordenen, omdat dit bepaald hoe objecten bewegen ten opzichte van elkaar. Dat betekent dat het hoofdobject(de body) bovenaan staat, en dat alle onderliggende objecten geplaatsen moeten worden onder het object waar het aan gekoppeld is. Dit geldt overigens voor de convex shapes. Alle convex shapes zijn overigens met elkaar verbonden door middel van de joints. De mask moet steeds geplaatst worden onder zijn eigen convex shape. Ook de dummies krijgen hun vaste plek. De Tip Dummy komt onder de tip van de poot terecht en de target dummy direct onder de body.
+
+
+\subsection{Het script}
+
+\subsubsection{Loopscript}
+Wanneer de spin in de fysieke wereld moet lopen, en de koppeling tussen simulatie en de robot is gemaakt, moet het simulatie model ook een loop beweging uitvoeren. Hiervoor is een Lua script geschreven, wat er voor zorgt dat het simulatie model zich lopend voort beweegt door de ruimte.
+
+Het Luascript is geïnspireerd op het script van de AntRobot, een standaard robot uit de V-REP bibliotheek, welke qua fysieke kenmerken redelijk overeen komt met de hexapod. De Ant heeft ook een main body met daaraan zes poten welke op dezelfde wijze kunnen scharnieren als de hexapod, wat de beweging van de poten vrij identiek aan elkaar maakt. De Ant maakt eveneens gebruik van Inversed Kinematics, wat voor het toepassen van bepaalde aspecten van dit script op de hexapod ideaal is.
+
+Het design van de code is hetzelfde gebleven, alleen zijn er bepaalde aanpassingen gemaakt waardoor het toepasbaar is voor de Hexapod. Het script is te vinden in de bijlage.
+
+\subsubsection{Positiescript}
+
+De koppeling van simulatie naar de robot kan alleen worden gemaakt wanneer de simulatie aan staat. Als deze bezig is, moeten de hoeken van de servo's worden uitgelezen om de hexapod dezelfde beweging te geven. Het uitlezen van de hoeken gebeurt met een python script wat per gewricht de hoek uitleest.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{blockschematic-spider}
+    \caption{Versimpelde weegave in een blokschema van de samenhang van de verschillende systemen en programma's op de hexapod.}
+    \label{fig:blockschematic-spider}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{blockschematic-computer}
+    \caption{Versimpelde weegave in een blokschema van de samenhang van de verschillende systemen en programma's op de externe computer.}
+    \label{fig:blockschematic-computer}
+\end{figure}
+
+\subsection{Embedded software spin}
+De spin bestaat uit 18 servo motoren die aangestuurd worden een 	arbotiX robocontroller board (zie figuur \ref{fig:robocontroller-overview}). Deze controller bestaat uit een ATMega644P, een XBee, Servo connectoren en wat algemene I/O.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{robocontroller-overview.png}
+    \caption{Robocontroller overzicht}
+    \label{fig:robocontroller-overview}
+\end{figure}
+
+\subsubsection{Aansturen Servo motoren}
+De servo motoren die gebruikt zijn de Dynamixel AX-18F. Deze motoren werken op 12V en kunnen maximaal 2,2A aan stroom trekken.
+Voor het aansturen gebruiken de motoren een eigen serieel protocol.\\\\
+Het protocol werkt met master die steeds een pakket over de communicatie bus stuurt en mogelijk een pakket terug kan krijgen. Elk pakket is gericht aan \'e\'en, meerdere of alle motoren (slaves).
+Een instructie pakket (master naar servo) bestaat uit de volgende stukken data:\\
+0xFF 0xFF ID LENGTH INSTRUCTION PARAMETER0 PARAMETERS-N CHECKSUM\\\\
+0xFF 0xFF geeft het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen dat er een pakket aankomt.\\\\
+ID geeft het ontvangers ID aan. Elke servo heeft een uniek ID die gebruikt kan worden. Verder is er een speciaal BROADCAST id waar elke servo naar luistert.\\\\
+LENGTH bevat de lengte van het pakketje. Hierdoor weet te ontvanger hoeveel parameters hij kan verwachten\\\\
+INSTRUCTION is het type pakket. Dit kan een READ, WRITE of SYNCWRITE zijn. Bij READ word er een waarde uitgelezen, Bij WRITE een waarde weggeschreven en bij SYNCWRITE kan er bij meerdere Servo motoren tegelijk worden geschreven.\\\\
+PARAMETER0 is het lees/schrijf adres
+PARAMETER-N is alle data die weggeschreven moet worden. Bij en SYNCWRITE instructie bevat dit de servo ID's en DATA per servo zodat meerdere servo tegelijk beschreven kunnen worden.\\\\
+CHECKSUM bevat een checksum van het gehele pakket zodat gecontroleerd kan worden of alles goed doorgekomen is.\\\\
+Een Status pakket (Servo naar master) bestaat uit de volgende stukken data:\\
+0xFF 0xFF ID LENGTH ERROR PARAMETER-N CHECKSUM\\
+0xFF 0xFF geeft het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen dat er een pakket aankomt.\\\\
+ID geeft het ontvangers ID aan. Elke servo heeft een uniek ID die gebruikt kan worden. Verder is er een speciaal BROADCAST id waar elke servo naar luistert.\\\\
+LENGTH bevat de lengte van het pakketje. Hierdoor weet te ontvanger hoeveel parameters hij kan verwachten\\\\
+ERROR geeft een binaire code terug met de fouten die op dat moment actief zijn in de servo. Zo een fout kan bijvoorbeeld zijn: Overbelasting, Checksum fout, Ingangspanning fout.\\\\
+PARAMETER-N geeft de data terug die door de instructie pakket is opgevraagd\\\\
+CHECKSUM bevat een checksum van het gehele pakket zodat gecontroleerd kan worden of alles goed doorgekomen is.\\\\
+
+\textbf{Implementatie}
+Het controller board werkt met een ATMega644P waarbij de Servo connectoren direct aangesloten zijn op een UART ingang van de atmega. De servo-bus werkt met een enkele seriele lijn en dat betekent dat zowel de verzend als de ontvang kant via dezelfde lijn werkt. Daarom moet elke keer wanneer data verzonden wordt de atmega uart ontvang hardware uitgezet worden en elke keer wanneer er data ontvangen wordt de atmega uart verzend hardware uit worden gezet.\\
+De AX18FWrite functie werkt vrij vanzelfsprekend. De UART Tx module wordt aangezet, de transmit buffer wordt leeg gehaald en vervolgens wordt de buffer weer gevuld met informatie van het pakketje. Op het eind wordt nog een checksum toegevoegd en de Tx module weer uitgezet.\\
+\lstinputlisting[language=C, numberfirstline=true, firstnumber=46 , firstline=46, lastline=74, style=cstyle, caption=AX18ServoDriver.c - AX18Write functie, label={ax18write}]{./source-code/AX18ServoDriver.c}
+De Read functie is iets uitgebreider omdat het de data echt moet kunnen analyseren. Eerst wordt een pakket verzonden naar de servo met een aanvraag voor data. Dit gebeurd op dezelfde manier zoals in de AX18FWrite functie. Daarna wacht de functie tot er data terug komt van de Servo. Elke byte die dan terug komt wordt in een state machine gestopt die alles byte voor byte analyseert. Zo zijn state 1 en state 2 de start bytes. Wanneer een andere byte dan de start byte is gevonden wordt de state weer naar 0. De rest van de states zijn ook duidelijk.
+
+
+\lstinputlisting[language=C, numberfirstline=true, firstnumber=119 , firstline=119, lastline=229, style=cstyle, caption=AX18ServoDriver.c - AX18Read functie, label={ax18write}]{./source-code/AX18ServoDriver.c}
+
+\subsubsection{Communicatie protocol}
+Om de robot draadloos aan te sturen wordt er gebruik gemaakt van xbee modules. Deze modules werken via een seri\"e ele verbinding. XBee bevat de mogelijkheid om de seri\"e ele data in data pakketten te versturen om zo individuele pakketten te kunnen onderscheiden. Echter maken wij daar geen gebruik van om het geheel wat simpeler te houden. Dit betekent dat er \' e\'en continu\"e stroom van data is die geanalyseerd moet worden om losse data berichten te onderscheiden.\\
+Dit wordt gedaan op dezelfde manier zoals de servo motoren worden aangestuurd. Het pakket begint wanneer er vier start bytes zijn gevonden. Daarna komt de lengte van de data, het commando, de data zelf en als laatst een checksum om het gehele pakket te controleren op fouten. Zie tabel \ref{transmit-xbee}. Deze pakketten kunnen op dit moment nog \'e\'en kant op worden gestuurd (van de Computer naar de spin) maar dit is later gemakkelijk uit te breiden om ook de andere kant op te gaan op dezelfde manier zoals bij de servo motoren het geval is.
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\textbf{byte nr}      & \textbf{Example value}             & \textbf{meaning}                           \\
+0-3          & 0x5A - 0x3C - 0x42 - 0x99 & Start bytes                       \\
+4            & 0x02                      & Data length \\
+5            & 0x00                      & Command                           \\
+6-(6+length) & 0x60                      & Additional data                   \\
+7+length     & 0xFF                      & Checksum (length, command and data)                  
+\end{tabular}
+\caption{XBee pakket}
+\label{transmit-xbee}
+\end{table}
+
+\textbf{Implementatie}
+Bij de implementatie van het communicatie protocol is geprobeerd het systeem zo robuust mogelijk te maken. De communicatie over de XBee werkt als een seriele lijn waar een lange stream aan data uitkomt. Omdat de XBee ook met buffers werkt en bij draadloos verkeer alle bytes niet altijd aankomen en opnieuw verzonden moeten worden kan het voorkomen dat de er soms 1 byte binnenkomt en soms 25 bytes. Elke byte moet verwerkt worden en bytes die een tijd later aankomen kunnen nog horen bij een pakket die eerder is begonnen.\\
+Om dit allemaal in goede banen te leiden is er een  'XBee\_ communication\_ processSerialData' functie gemaakt waar de staat van een pakket wordt opgeslagen en het pakket via meerdere stukken opgebouwd kan worden. Deze functie werkt ook met een state machine, het grote verschil is dat het pakket inclusief de ontvang staat globaal opgeslagen wordt. Verder kunnen pakketten worden opgeslagen en direct door worden gegaan met het analyseren van de rest van de data. De pakketten worden opgeslagen in een ringbuffer hierdoor kan de buffer nooit overstromen met te veel data maar zullen de meest oude pakketten verwijderd worden van de buffer zodat de nieuwste pakketten in ieder geval nog uitgelezen kunnen worden.\\
+\lstinputlisting[language=C, numberfirstline=true, firstnumber=119 , firstline=77, lastline=146, style=cstyle, caption=XbeeCom.c - processSerialData functie, label={processSerialData}]{./source-code/XbeeCom.c}
+\newpage
+
+\section{Resultaten}
+\section{Discussie en resultaten}
+\section{Conclusies}
+\section{Aanbevelingen}
+
+
+\section{Onderzoeks opzet}
+Het project bestaat uit twee delen. Het eerste deel heeft als doel de hexapod in de simulatie te verwerken. Het tweede deel is ervoor zorgen dat er een verbinding ontstaat tussen de simulatie en de hexapod. 
+Vanwege de wensen van de opdrachtgever zal er gewerkt worden met het simulatie-programma V-REP en zullen andere softwarepakketten buiten beschouwing worden gelaten.  
+
+Daarnaast zal er in de eerste deel gekeken worden naar toepassingen die andere hebben bedacht voor de hexapod. Hieruit is inspiratie te halen voor handige en leuke toepassingen.
+
+Om de verbinding te maken tussen robot en computer dienen er verschillende bronnen te worden geraadpleegd. Een groot deel van die bronnen zal worden voorzien door gebruik te maken van het internet. Verder zal kennis die in de les wordt opgedaan, worden toegepast en de boeken kunnen worden bekeken.
+
+
+De hexapod is al fysiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneert. Tijdens het schrijven van de verschillende functies zal de hexapod fysiek aanwezig zijn om direct het resultaat te ondervinden.
+\newpage
+
+
+
+\iffalse % commentaar sectie
+\section{Firmware robot}
+Om de robot te besturen is er in het standaard model gebruik gemaakt van de Arbotix robocontroller. 
+Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de grond af aan eigen software te schrijven.
+
+\fi
+
+\newpage
+
+\section{Bibliografie}
+\bibliography{references}
+\bibliographystyle{IEEEtran}
+
+
+\end{document}
