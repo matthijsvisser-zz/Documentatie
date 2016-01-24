@@ -52,23 +52,19 @@
 \tableofcontents
 \newpage
 
-\iffalse % Commentaar sectie
 \section{Samenvatting}
-Not in use yet
+In dit raamwerk is er onderzoek gedaan naar hoe een simulatieomgeving opgezet kan worden die gekoppeld is aan een fysieke robot. Er zijn meerdere programma's ontwikkeld en er is een simulatie gemaakt van de fysieke robot. Een aantal tegenslagen op het gebied van de simulatie en hardware heeft het onderzoek vertraagd waardoor een aantal additionele specificaties niet behaald konden worden. Uiteindelijk is er een platform ontwikkeld wat een verbinding maakt tussen een fysieke robot en een simulatie model met dezelfde eigenschappen.
+
 \newpage
-\fi
-
-
 
 \section{Inleiding}
-Deze opdracht betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten} De robot die gebruikt gaat worden is de PhantomX AX Hexapod van TrossenRobotics. \cite{PhantomX AX Hexapod Kit}.
+Deze opdracht betreft het ontwikkelen van de besturing en simulatie van een hexapod robot.\cite{beroepsopdrachten} De robot die gebruikt gaat worden is de PhantomX AX Hexapod van TrossenRobotics.
 
 In de huidige situatie wordt een hexapod handmatig met een afstandbediening bestuurd en kent geen vorm van intelligentie. Ter voorbereiding op het werken met kunstmatige intelligentie, is er voor gekozen om een simulatiemodel van de robot te ontwikkelen. Om praktische informatie te verzamelen is er een koppeling nodig tussen het simulatie model en de hardware van de robot. Met behulp van deze koppeling kan er onderzoek gedaan worden naar bijvoorbeeld effici\"ente looppatronen en zelf lerende functies.
 
 Het verslag is opgebouwd uit het onderzoek naar een hexapod met daarbij de hoofdvraag en deelvragen. Gevolgd door de specificaties en de implementatie van het ontwerp.
 
 \newpage
-
 \section{Opdrachtdefinitie} 
 De hexapod is momenteel alleen te besturen met behulp van een afstandbediening. De huidige besturingssoftware op de robot is niet in staat naast de afstandbediening om externe commando's te verwerken. Daarnaast kent het in de huidige toestand geen vorm van intelligentie. Zo heeft de robot momenteel geen besef van wat zich in zijn directe omgeving bevindt.
 
@@ -143,7 +139,7 @@ Het controleren van de noodzakelijke specificaties zal in het begin stadium voor
 standaard looppatroon aan te passen."} Deze specificatie zou getest kunnen worden door e\'e\'n of meerdere poten te verwijderen of te deactiveren in het simulatiemodel.
 
 \textbf{"Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht
-van de eventuele ballast"} Door een test met verschillende gewichten van bijvoorbeeld 10,50 en 100\% van zijn draagvermogen of geen gewicht op de hexapod, kan gekeken worden naar veranderingen in het loopgedrag van de hexapod. Een vervolg actie zou zijn of er een optimale manier gevonden kan worden voor het verbeteren van het lopen onder druk. Daarnaast zou nog getest kunnen worden of de locatie van de ballast een zelfde soort invloed heeft op het loopgedrag.
+van de eventuele ballast"} Door een test met verschillende gewichten van bijvoorbeeld 10, 50 en 100\% van zijn draagvermogen of geen gewicht op de hexapod, kan gekeken worden naar veranderingen in het loopgedrag van de hexapod. Een vervolg actie zou zijn of er een optimale manier gevonden kan worden voor het verbeteren van het lopen onder druk. Daarnaast zou nog getest kunnen worden of de locatie van de ballast een zelfde soort invloed heeft op het loopgedrag.
 
 
 
@@ -386,7 +382,7 @@ Het primaire doel van het project was een verbinding cre\"eren tussen de fysieke
 
 Alle bovengenoemde noodzakelijke specificaties zijn behaald. De hexapod kan draadloos aangestuurd worden vanuit het simulatiemodel en verricht exact de zelfde handeling. Het simulatiemodel is zo ingesteld dat het onmogelijk is gemaakt dat de robot zichzelf kan beschadigen door een verkeerde stuuractie. Daarnaast vinden er op verschillende plaatsen in de software checksums plaats die corrupte berichten filteren uit de informatieoverdracht.
 
-De gewenste specificaties zijn door verschillende redenen niet gerealiseerd. Dat heeft te maken met 
+De gewenste specificaties zijn door verschillende redenen niet gerealiseerd. Dat heeft te maken met de opgelopen vertraging door het weigeren of defect raken van hardware en problemen met het simulatiemodel.
 
 \newpage
 \section{Aanbevelingen}
@@ -395,12 +391,6 @@ In het voorgaande hoofdstuk bleek dat niet alle gewenste specificaties zijn beha
 Het huidige model heeft nog een aantal beperkingen. Zo is het momenteel niet mogelijk om bijvoorbeeld de poot van de fysieke hexapod te bewegen en dit terug te zien in het simulatiemodel. Die communicatie verloopt nu namelijk e\"e\"n richting op. 
 
 Daarnaast kwam het team er achter dat de huidige hardware (de robocontroller) toch nog een aantal beperkingen heeft. Zo bleek de ATMega moeite te hebben met het verwerken van de draadloze informatieoverdracht. Dit resulteerde in het falen van checksum en het traag reageren van de fysieke robot. Momenteel word iedere 20 milliseconde een update van de stand van de poten opgevraagd om een nog enig sinds vloeiende beweging te cre\"eeren. Achteraf gezien was het wellicht toch beter om een eigen "robocontroller' te ontwikkelen.
-
-
-\newpage
-
-
-\section{Bijlage}
 
 \newpage
 
