@@ -178,14 +178,27 @@ Het object wordt initieel in V-rep gezien als geheel object. Met 'divide selecte
 \end{itemize}
 
 \subsubsection{Gewrichten}
-% Dit is zo gekozen om ervoor te zorgen dat er steeds een geheel object gepositioneerd is tussen elk gewricht. % wtf?
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{object-item-position-en-orientation}
+    \caption{object-item-position-en-orientation}
+    \label{fig:object-item-position-en-orientation}
+\end{figure}
+
  Met behulp van gewrichten worden de 18 pootdelen en de main body met elkaar verbonden. Het is een vrij omslachtig proces om de gewrichten juist toe te voegen. Als allereerst, moet het betreffend hoofdobject geselecteerd worden. Deze wordt vervolgens gekopie\"erd en in een nieuwe scene geplaatst. In 'triangle edit mode', moet het onderdeel geselecteerd worden op de plek waar de joint uiteindelijk hoort te komen. Met 'invert selection', is het mogelijk om het ongewenste deel van het object te selecteren en te verwijderen. In het menu kan er met 'add $\rightarrow$ joint' een gewricht worden toegevoegd. In alle gevallen, wordt er gebruik gemaakt van de 'revolute joint'. Met de functie 'object/item position/orientation' is het mogelijk de joint op exact de zelfde positie als het overgebleven objectonderdeel te plaatsen. Daarbij moet eerst het gewricht geselecteerd worden, en daarna het overgebleven object. In de 'positions/translations' tab moeten de x, y en z co\"ordinaten worden overgenomen. In de 'Orientation/Rotations' map hoort het gewricht zijn juiste ori\"entatie te krijgen. Dit kan door aanpassen van de alpha, beta of gamma waardes. Dit verschilt uiteraard per poot, gezien elke poot een andere ori\"entatie heeft. Als het gewricht eenmaal in de juiste positie is, kan die door middel van kopi\"eren en plakken weer in de originele scene geplaatst worden. De reden dat de 'triangle edit mode' niet gebruikt moet worden in de hoofdscene, is omdat het een grafisch zware operatie is. Bij 'scene object properties' kan overigens de diameter en lengte attributen worden aangepast. Bovendien kunnen de gewrichten daar doorzichtig worden gemaakt.
 
 \subsubsection{Convex en Mask}
-% afbeeldingen en illustratie toevoegen! je gebruikt echt heel veel termen die niet altijd duidelijk zijn als je VREP niet kent of geen idee hebt wat VREP uberhaupt is
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{dynamic-properties-dialog}
+    \caption{dynamic-properties-dialog}
+    \label{fig:dynamic-properties-dialog}
+\end{figure}
+
 Omdat V-REP veel berekeningen moet doen bij het simuleren van complexe objecten, is het niet gunstig om te gaan simuleren met de objecten die ge\"importeerd zijn. Het is daarom ook nodig om de vorm van de objecten te vereenvoudigen. Dit kan met 'Morph selection into convex shapes', dat zorgt er uiteindelijk voor dat simulaties vele malen vloeiender worden uitgevoerd. 
 Om het uiterlijk van de spin te behouden, worden de ge\"importeerde objecten gebruikt als mask. Om dit te bereiken, moet in het 'dynamic properties dialog' venster alles worden uitgevinkt. Dat zorgt ervoor dat het object niet met zijn omgeving reageert, en dat het niet dynamisch gesimuleerd wordt.
-De convex shapes daarintegen, moeten wel dynamisch zijn en kunnen reageren met de omgeving. Deze instellingen zijn te bereiken via de 'scene object properties' via de knop 'Show Dynamic Properties Dialog'. Om objecten te kunnen laten reageren met de omgeving, kan gebruikt gemaakt worden van 'local mask' of 'global mask'. Local mask is van toepassing op objecten die onder het zelfde hoofdobject staan, terwijl global mask geldt voor de objecten in de hele scene, zoals andere objecten en de vloer. Of het object reageert of niet, hangt af van de geselecteerde blokjes. % ik weet wat het is maar de lezer ook?
+De convex shapes daarintegen, moeten wel dynamisch zijn en kunnen reageren met de omgeving. Deze instellingen zijn te bereiken via de 'scene object properties' via de knop 'Show Dynamic Properties Dialog'. Om objecten te kunnen laten reageren met de omgeving, kan gebruikt gemaakt worden van 'local mask' of 'global mask'. Local mask is van toepassing op objecten die onder het zelfde hoofdobject staan, terwijl global mask geldt voor de objecten in de hele scene, zoals andere objecten en de vloer. Of het object reageert of niet, hangt af van de geselecteerde blokjes. 
 Als twee objecten maar ook een blokje gemeenschappelijk hebben(aan- of uitgevinkt), dan ontstaat er interactie tussen de objecten bij collisie. Om ervoor te zorgen dat alle aanliggende onderdelen elkaar niet proberen af te stoten, moeten die niet met elkaar kunnen reageren. Zo zijn er bij 'Leg 1' in de local mask de eerste 9 vakjes aangevinkt, terwijl slechtst het laatste vakje aangevinkt is bij 'Motor 1'.
 Verder moeten de afzonderlijke poten wel met elkaar kunnen reageren, omdat collisie tussen poten mogelijk moet zijn als dat niet voorkomen wordt. 
 Alle convex shapes moeten 'dynamically enabled' zijn om ze te kunnen simuleren, wat ook gebeurd in de 'dynamic properties dialog'. Hier kan onderandere de massa en inertia ingesteld worden. De totale massa van de hexapod is ingesteld op 1.75kg, wat in lijn is met de werkelijkheid.
@@ -199,12 +212,17 @@ Naast de tip dummies worden er evenveel target dummies aangemaakt. Deze zitten i
 \subsubsection{Scene hierarchy}
 Het is belangrijk om de scene hierarchy goed te ordenen, omdat dit bepaald hoe objecten bewegen ten opzichte van elkaar. Leidraad voor een juiste hierarchy, is dat het hoofdobject bovenaanstaat. De objecten en gewrichten waar die direct meegekoppeld zijn, komen direct daaronder te staan.
 
-%Misschien een afbeelding? 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Scene-hierarchy}
+    \caption{Scene-hierarchy}
+    \label{fig:Scene-hierarchy}
+\end{figure}
 
 Er wordt eerst naar de convex shapes gekeken, omdat die relevant zijn voor het simuleren. De convex body staat dus bovenop, en daaronder komen de eerste zes gewrichten te staan. Onder elke joint komt de convex connector te liggen. Onder iedere connector, zit de tweede joint, en onder die joints komen de links met de twee overige motoren. Als laatste komt de derde joint daaronder te staan, en de poot onder de derde joint. De dummies worden gebruikt voor de berekeningen. De tip dummies moeten de poten volgen, en moeten daarom direct onder de poten geplaatst worden. De target dummies worden onder het hoofdobject geplaatst.
 De mask moet visueel de convex shapes kunnen representeren, en moeten die kunnen volgen. Door de mask steeds onder zijn eigen convex object te plaatsen in de scene hierarchy, wordt dit effect bereikt.
 
-\subsubsection{physics engine}
+\subsubsection{Physics engine}
 V-REP maakt gebruik van 4 verschillende physics engines. Dit zijn Bullet, ODE, Vortex en Newton. Van alle physics engines, bleek Bullet het soepelst te werken. Voor de simulaties is er gekozen om gebruik te maken van deze engine.
 
 \subsubsection{Inverse Kinematics}
