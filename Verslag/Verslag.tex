@@ -110,6 +110,7 @@ Om de verbinding te maken tussen robot en computer dienen er verschillende bronn
 
 De hexapod is al fysiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneert. Tijdens het schrijven van de verschillende functies zal de hexapod fysiek aanwezig zijn om direct het resultaat te ondervinden.
 
+\newpage
 \section{Specificaties}
 
 Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
@@ -132,10 +133,17 @@ Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implemen
 \end{itemize}
 
 \subsection{Testplan}
-% Of is het echt de bedoeling dat er per specificatie onderdeel uitgelegd wordt hoe die getest en beoordeeld wordt? %
 Om te kijken of de specificaties gehaald zijn wordt er als eerst gekeken naar de noodzakelijke specificaties. Deze specificaties zijn zo opgesteld dat deze in ieder geval haalbaar zijn. De haalbaarheid van de gewenste specificaties zijn lastig in te schatten omdat dit veelal buiten onze huidige kennis. Daarom kan het blijken dat een of meerdere specificaties te makkelijk of lastig zijn opgesteld naar mate het onderzoek vordert. In dat geval zal er samen met de begeleider gekeken worden of er een alternatieve specificatie mogelijk is.
 Of de resultaten wel of niet voldoen aan de eisen kan in veel gevallen objectief beoordeeld worden door te kijken naar de exacte eisen en de bijbehorende resultaten. Echter is dit bij enkele specificaties niet mogelijk en zal dit met logische redenering en duidelijke uitleg worden ondersteund.
 Dit betekent dat de resultaten goed gedocumenteerd worden zodat het bij de conclusie duidelijk is wanneer de specificaties gehaald zijn. Bij twijfel of een specificatie gehaald is zal dit met de begeleider besproken worden.
+
+Het controleren van de noodzakelijke specificaties zal in het begin stadium voornamelijk bestaan uit het afzonderlijk testen van onderdelen. Zo kan de communicatie opgedeeld worden in communicatie tussen het simulatie model $\rightarrow$ computerprogramma en het computerprogramma $\rightarrow$ en de hexapod. Dit kan vanzelfsprekend ook met andere onderdelen van de specificaties. Het controleren van een aantal specificaties spreekt voor zich, daar hoeft geen testscenario voor opgesteld te worden.
+
+\textbf{"Met een beperking aan een of meerdere poten is het in staat om het
+standaard looppatroon aan te passen."} Deze specificatie zou getest kunnen worden door e\'e\'n of meerdere poten te verwijderen of te deactiveren in het simulatiemodel.
+
+\textbf{"Kan zijn looppatroon aanpassen indien nodig, afhankelijk van het gewicht
+van de eventuele ballast"} Door een test met verschillende gewichten van bijvoorbeeld 10,50 en 100\% van zijn draagvermogen of geen gewicht op de hexapod, kan gekeken worden naar veranderingen in het loopgedrag van de hexapod. Een vervolg actie zou zijn of er een optimale manier gevonden kan worden voor het verbeteren van het lopen onder druk. Daarnaast zou nog getest kunnen worden of de locatie van de ballast een zelfde soort invloed heeft op het loopgedrag.
 
 
 
