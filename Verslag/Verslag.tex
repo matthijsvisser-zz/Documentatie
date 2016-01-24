@@ -31,11 +31,22 @@
     tabsize=2
 }
 \graphicspath{ {./images/} }
-\title{Robotica: Hexapod}
-\author{I. van Alphen, S. van Doesburg, E.  Salsbach, M. Visser}
-\begin{document}
 
-\maketitle
+\begin{document}
+\begin{titlepage}
+    \centering
+    \vfill
+    {\Large
+        Robotica: Hexapod\\
+        \vskip2cm
+        I. van Alphen, S. van Doesburg, E.  Salsbach, M. Visser\\
+    }    
+    \vfill
+    \includegraphics[width=1\textwidth]{WireS4}
+    \vfill
+    \vfill
+\end{titlepage}
+
 \newpage
 
 \tableofcontents
@@ -88,15 +99,16 @@ De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
 \end{itemize}
 \fi
 
+\section{Onderzoeks opzet}
+Het project bestaat uit twee delen. Het eerste deel heeft als doel de hexapod in de simulatie te verwerken. Het tweede deel is ervoor zorgen dat er een verbinding ontstaat tussen de simulatie en de hexapod. 
+Vanwege de wensen van de opdrachtgever zal er gewerkt worden met het simulatie-programma V-REP en zullen andere softwarepakketten buiten beschouwing worden gelaten.  
 
-\section{Theoretisch kader}
-\begin{itemize}
-\setlength\itemsep{0em}
-\item Inhoudelijke verkenning, kennis benodigd voordat met het ontwerp gestart kan worden (o.a. normen en regelgeving)
-\item Relevante onderzoeksvragen worden hierin uitgewerkt 
-\item Welke literatuur en/of theorieën zijn relevant en wat betekent dit voor het ontwerp \item Overzicht van bestaande oplossingen van het probleem en waarom voldoen deze in dit specifieke geval wel/niet.
-\end{itemize}
-\newpage
+Daarnaast zal er in de eerste deel gekeken worden naar toepassingen die andere hebben bedacht voor de hexapod. Hieruit is inspiratie te halen voor handige en leuke toepassingen.
+
+Om de verbinding te maken tussen robot en computer dienen er verschillende bronnen te worden geraadpleegd. Een groot deel van die bronnen zal worden voorzien door gebruik te maken van het internet. Verder zal kennis die in de les wordt opgedaan, worden toegepast en de boeken kunnen worden bekeken.
+
+
+De hexapod is al fysiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneert. Tijdens het schrijven van de verschillende functies zal de hexapod fysiek aanwezig zijn om direct het resultaat te ondervinden.
 
 \section{Specificaties}
 
@@ -121,9 +133,12 @@ Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implemen
 
 \subsection{Testplan}
 % Of is het echt de bedoeling dat er per specificatie onderdeel uitgelegd wordt hoe die getest en beoordeeld wordt? %
-Om te kijken of de specificaties gehaald zijn wordt er als eerst gekeken naar de noodzakelijke specificaties. Deze specificaties zijn geprobeerd zo op te stellen dat deze in ieder geval haalbaar zijn. De haalbaarheid van de gewenste specificaties zijn voor lastig in te schatten omdat dit veelal buiten onze huidige kennis is en daarom kan het blijken dat een of meerdere specificaties te makkelijk of te lastig zijn opgesteld naar mate het onderzoek vordert. In dat geval zal er samen met de begeleider gekeken worden of er een alternatieve specificatie mogelijk is.
-Of de resultaten wel of niet voldoen aan de eisen kan in veel gevallen objectief beoordeeld worden door te kijken naar de exacte eisen en de bijbehorende resultaten. Echter is dit bij sommige specificaties niet mogelijk en zal dit met logische redenering en duidelijke uitleg worden ondersteund.
+Om te kijken of de specificaties gehaald zijn wordt er als eerst gekeken naar de noodzakelijke specificaties. Deze specificaties zijn zo opgesteld dat deze in ieder geval haalbaar zijn. De haalbaarheid van de gewenste specificaties zijn lastig in te schatten omdat dit veelal buiten onze huidige kennis. Daarom kan het blijken dat een of meerdere specificaties te makkelijk of lastig zijn opgesteld naar mate het onderzoek vordert. In dat geval zal er samen met de begeleider gekeken worden of er een alternatieve specificatie mogelijk is.
+Of de resultaten wel of niet voldoen aan de eisen kan in veel gevallen objectief beoordeeld worden door te kijken naar de exacte eisen en de bijbehorende resultaten. Echter is dit bij enkele specificaties niet mogelijk en zal dit met logische redenering en duidelijke uitleg worden ondersteund.
 Dit betekent dat de resultaten goed gedocumenteerd worden zodat het bij de conclusie duidelijk is wanneer de specificaties gehaald zijn. Bij twijfel of een specificatie gehaald is zal dit met de begeleider besproken worden.
+
+
+
 \newpage
 
 \section{Ontwerp}
@@ -287,7 +302,7 @@ De inhoud van een instructie pakket (master naar servo) bestaat uit de informati
 \end{tabular}
 \end{table}
 
-Twee maal '0xFF 0xFF' geeft het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen van de bus dat er een pakket aankomt.\\\\
+Twee maal '0xFF' geeft het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen van de bus dat er een pakket aankomt.\\\\
 Een 'ID' geeft het ontvangers ID aan. Elke servo heeft een uniek ID die gebruikt kan worden. Verder is er een speciaal BROADCAST id waar elke servo naar luistert.
 
 \begin{figure}[h]
@@ -299,34 +314,43 @@ Een 'ID' geeft het ontvangers ID aan. Elke servo heeft een uniek ID die gebruikt
 
 
 
-LENGTH bevat de lengte van het pakketje. Hierdoor weet te ontvanger hoeveel parameters hij kan verwachten\\\\
-INSTRUCTION is het type pakket. Dit kan een READ, WRITE of SYNCWRITE zijn. Bij READ word er een waarde uitgelezen, Bij WRITE een waarde weggeschreven en bij SYNCWRITE kan er bij meerdere Servo motoren tegelijk worden geschreven.\\\\
-PARAMETER0 is het lees/schrijf adres
-PARAMETER-N is alle data die weggeschreven moet worden. Bij en SYNCWRITE instructie bevat dit de servo ID's en DATA per servo zodat meerdere servo tegelijk beschreven kunnen worden.\\\\
-CHECKSUM bevat een checksum van het gehele pakket zodat gecontroleerd kan worden of alles goed doorgekomen is.\\\\
-Een Status pakket (Servo naar master) bestaat uit de volgende stukken data:\\
-0xFF 0xFF ID LENGTH ERROR PARAMETER-N CHECKSUM\\
-0xFF 0xFF geeft het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen dat er een pakket aankomt.\\\\
-ID geeft het ontvangers ID aan. Elke servo heeft een uniek ID die gebruikt kan worden. Verder is er een speciaal BROADCAST id waar elke servo naar luistert.\\\\
-LENGTH bevat de lengte van het pakketje. Hierdoor weet te ontvanger hoeveel parameters hij kan verwachten\\\\
-ERROR geeft een binaire code terug met de fouten die op dat moment actief zijn in de servo. Zo een fout kan bijvoorbeeld zijn: Overbelasting, Checksum fout, Ingangspanning fout.\\\\
-PARAMETER-N geeft de data terug die door de instructie pakket is opgevraagd\\\\
-CHECKSUM bevat een checksum van het gehele pakket zodat gecontroleerd kan worden of alles goed doorgekomen is.\\\\
+De parameter 'LENGTH' bevat de lengte van het pakket aan informatie. Hierdoor weet de ontvanger hoeveel parameters het kan verwachten\\\\
+Een 'INSTRUCTION' is het type pakket. Dit kan een 'READ', 'WRITE' of 'SYNCWRITE' zijn. Bij READ word er een waarde uitgelezen, Bij WRITE een waarde weggeschreven en bij SYNCWRITE kan er bij meerdere servomotoren tegelijk worden geschreven.\\\\
+De waarde 'PARAMETER0' is het lees/schrijf adres.
+'PARAMETER-N' is alle informatie die weggeschreven moet worden. Bij een SYNCWRITE instructie bevat dit de servo ID's en DATA per servo zodat meerdere servo's tegelijk beschreven kunnen worden.\\\\
+De 'CHECKSUM' bevat een checksum van het gehele pakket zodat gecontroleerd kan worden of alles goed is aangekomen.\\\\
+Een 'status pakket' (servo naar master) bestaat uit de volgende stukken informatie:\\
+
+\begin{table}[]
+\centering
+\caption{status pakket van servo naar master.}
+\label{instructionpackage}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+0xFF & 0xFF & ID & Length & Error & Parameters-n & Checksum \\ \hline
+\end{tabular}
+\end{table}
+
+Net zoals bij een instructie pakket geeft tweemaal '0xFF' het begin van een pakket aan. Wanneer dit ontvangen wordt weet iedereen dat er een pakket aankomt.\\\\
+
+De parameter 'ERROR' geeft een binaire code terug met de fouten die op dat moment actief zijn in de servo. Zo een fout kan bijvoorbeeld zijn: overbelasting, checksum fout of een ingangspanning fout.\\\\
+PARAMETER-N geeft de informatie terug die door de instructie pakket is opgevraagd\\\\
+
 
 \textbf{Implementatie}
-Het controller board werkt met een ATMega644P waarbij de Servo connectoren direct aangesloten zijn op een UART ingang van de atmega. De servo-bus werkt met een enkele seriele lijn en dat betekent dat zowel de verzend als de ontvang kant via dezelfde lijn werkt. Daarom moet elke keer wanneer data verzonden wordt de atmega uart ontvang hardware uitgezet worden en elke keer wanneer er data ontvangen wordt de atmega uart verzend hardware uit worden gezet.\\
+Het controller board werkt met een ATMega644P waarbij de Servo connectoren direct aangesloten zijn op een UART ingang van de atmega. De servo communicatiebus werkt met een enkele seriele lijn en dat betekent dat zowel de verzend als de ontvang kant via dezelfde lijn werkt (half duplex). Daarom moet elke keer wanneer informatie verzonden wordt de ATMega UART ontvang hardware uitgezet worden. Andersom geldt dit ook, wanneer er informatie ontvangen wordt de ATMega UART verzend hardware uit worden gezet.\\
 De AX18FWrite functie werkt vrij vanzelfsprekend. De UART Tx module wordt aangezet, de transmit buffer wordt leeg gehaald en vervolgens wordt de buffer weer gevuld met informatie van het pakketje. Op het eind wordt nog een checksum toegevoegd en de Tx module weer uitgezet.\\
 
 \lstinputlisting[language=C, numberfirstline=true, firstnumber=46 , firstline=46, lastline=74, style=cstyle, caption=AX18ServoDriver.c - AX18Write functie, label={ax18write}]{./source-code/AX18ServoDriver.c}
 
-De Read functie is iets uitgebreider omdat het de data echt moet kunnen analyseren. Eerst wordt een pakket verzonden naar de servo met een aanvraag voor data. Dit gebeurd op dezelfde manier zoals in de AX18FWrite functie. Daarna wacht de functie tot er data terug komt van de Servo. Elke byte die dan terug komt wordt in een state machine gestopt die alles byte voor byte analyseert. Zo zijn state 1 en state 2 de start bytes. Wanneer een andere byte dan de start byte is gevonden wordt de state weer naar 0. De rest van de states zijn ook duidelijk.
+De Read functie is iets uitgebreider omdat het de informatie echt moet kunnen analyseren. Eerst wordt een pakket verzonden naar de servo met een aanvraag voor informatie. Dit gebeurd op dezelfde manier zoals in de AX18FWrite functie. Daarna wacht de functie tot er informatie terug komt van de servo. Elke byte die dan terug komt wordt in een state machine gestopt die alles byte voor byte analyseert. Zo zijn state 1 en state 2 de start bytes. Wanneer een andere byte dan de start byte is gevonden wordt de state weer naar 0. De rest van de states zijn ook duidelijk.
 
 
 \lstinputlisting[language=C, numberfirstline=true, firstnumber=119 , firstline=119, lastline=229, style=cstyle, caption=AX18ServoDriver.c - AX18Read functie, label={ax18write}]{./source-code/AX18ServoDriver.c}
 
-\subsubsection{Communicatie protocol}
-Om de robot draadloos aan te sturen wordt er gebruik gemaakt van XBee modules. Deze modules werken via een seri\"e ele verbinding. XBee bevat de mogelijkheid om de seri\"e ele data in data pakketten te versturen om zo individuele pakketten te kunnen onderscheiden. Echter maken wij daar geen gebruik van om het geheel wat simpeler te houden. Dit betekent dat er \' e\'en continu\"e stroom van data is die geanalyseerd moet worden om losse data berichten te onderscheiden.\\
-Dit wordt gedaan op dezelfde manier zoals de servo motoren worden aangestuurd. Het pakket begint wanneer er vier start bytes zijn gevonden. Daarna komt de lengte van de data, het commando, de data zelf en als laatst een checksum om het gehele pakket te controleren op fouten. Zie tabel \ref{transmit-xbee}. Deze pakketten kunnen op dit moment nog \'e\'en kant op worden gestuurd (van de Computer naar de spin) maar dit is later gemakkelijk uit te breiden om ook de andere kant op te gaan op dezelfde manier zoals bij de servo motoren het geval is.
+\subsubsection{Communicatieprotocol}
+Om de robot draadloos aan te sturen wordt er gebruik gemaakt van XBee modules. Deze modules werken via een seri\"e ele verbinding. XBee bevat de mogelijkheid om de seri\"e ele informatie in data pakketten te versturen om zo individuele pakketten te kunnen onderscheiden. Echter maken wij daar geen gebruik van om het geheel wat simpeler te houden. Dit betekent dat er \' e\'en continu\"e stroom van data is die geanalyseerd moet worden om losse informatieberichten te onderscheiden.\\
+Dit wordt gedaan op dezelfde manier zoals de servo motoren worden aangestuurd. Het pakket begint wanneer er vier start bytes zijn gevonden. Daarna komt de lengte van de data, het commando, de data zelf en als laatst een checksum om het gehele pakket te controleren op fouten. Zie tabel \ref{transmit-xbee}. Deze pakketten kunnen op dit moment nog \'e\'en kant op worden gestuurd (van de computer naar de spin) maar dit is later gemakkelijk uit te breiden om ook de andere kant op te gaan op dezelfde manier zoals bij de servomotoren het geval is.
 \begin{table}[h]
 \centering
 \begin{tabular}{lll}
@@ -342,37 +366,31 @@ Dit wordt gedaan op dezelfde manier zoals de servo motoren worden aangestuurd. H
 \end{table}
 
 \textbf{Implementatie}
-Bij de implementatie van het communicatie protocol is geprobeerd het systeem zo robuust mogelijk te maken. De communicatie over de XBee werkt als een seriele lijn waar een lange stream aan data uitkomt. Omdat de XBee ook met buffers werkt en bij draadloos verkeer alle bytes niet altijd aankomen en opnieuw verzonden moeten worden kan het voorkomen dat de er soms 1 byte binnenkomt en soms 25 bytes. Elke byte moet verwerkt worden en bytes die een tijd later aankomen kunnen nog horen bij een pakket die eerder is begonnen.\\
-Om dit allemaal in goede banen te leiden is er een  'XBee\_ communication\_ processSerialData' functie gemaakt waar de staat van een pakket wordt opgeslagen en het pakket via meerdere stukken opgebouwd kan worden. Deze functie werkt ook met een state machine, het grote verschil is dat het pakket inclusief de ontvang staat globaal opgeslagen wordt. Verder kunnen pakketten worden opgeslagen en direct door worden gegaan met het analyseren van de rest van de data. De pakketten worden opgeslagen in een ringbuffer hierdoor kan de buffer nooit overstromen met te veel data maar zullen de meest oude pakketten verwijderd worden van de buffer zodat de nieuwste pakketten in ieder geval nog uitgelezen kunnen worden.\\
+Bij de implementatie van het communicatieprotocol is geprobeerd het systeem zo robuust mogelijk te maken. De communicatie over de XBee werkt als een seriele lijn waar een lange stroom aan informatie uitkomt. Omdat de XBee ook met buffers werkt en bij draadloos verkeer alle bytes niet altijd aankomen en opnieuw verzonden moeten worden kan het voorkomen dat er 1 byte binnenkomt en soms 25 bytes. Elke byte moet verwerkt worden en bytes die een tijd later aankomen kunnen nog horen bij een pakket die eerder is begonnen.\\
+Om dit allemaal in goede banen te leiden is er een  'XBee\_ communication\_ processSerialData' functie gemaakt waar de staat van een pakket wordt opgeslagen en het pakket via meerdere stukken opgebouwd kan worden. Deze functie werkt ook met een state machine, het grote verschil is dat het pakket inclusief de ontvang staat globaal opgeslagen wordt. Verder kunnen pakketten worden opgeslagen en direct door worden gegaan met het analyseren van de rest van de informatie. De pakketten worden opgeslagen in een ringbuffer hierdoor kan de buffer nooit overstromen met te veel informatie maar zullen de meest oude pakketten verwijderd worden van de buffer zodat de nieuwste pakketten in ieder geval nog uitgelezen kunnen worden.\\
 \lstinputlisting[language=C, numberfirstline=true, firstnumber=119 , firstline=77, lastline=146, style=cstyle, caption=XbeeCom.c - processSerialData functie, label={processSerialData}]{./source-code/XbeeCom.c}
 \newpage
 
-\section{Resultaten}
+
 \section{Discussie en resultaten}
-\section{Conclusies}
+In de specificatie van dit raamwerk staan noodzakelijke en gewenste specificaties.
+Het primaire doel van het project was een verbinding cre\"eren tussen de fysieke hexapod en het simulatiemodel. Deze verbinding moest draadloos zijn om de hexapod niet te beperken in zijn bewegingsvrijheid. Het doel van deze verbinding was dat het simulatiemodel de fysieke robot kon aansturen. Vanwege deze reden was het van belang dat de maatgeving van de de modellen overeen kwamen met elkaar. Om te voorkomen dat de robot zichzelf zou beschadigen was het van belang dat het simulatiemodel geen onmogelijke commando's naar de fysieke robot zou sturen.
+
+Alle bovengenoemde noodzakelijke specificaties zijn behaald. De hexapod kan draadloos aangestuurd worden vanuit het simulatiemodel en verricht exact de zelfde handeling. Het simulatiemodel is zo ingesteld dat het onmogelijk is gemaakt dat de robot zichzelf kan beschadigen door een verkeerde stuuractie. Daarnaast vinden er op verschillende plaatsen in de software checksums plaats die corrupte berichten filteren uit de informatieoverdracht.
+
+De gewenste specificaties zijn door verschillende redenen niet gerealiseerd. Dat heeft te maken met 
+
+\newpage
 \section{Aanbevelingen}
+In het voorgaande hoofdstuk bleek dat niet alle gewenste specificaties zijn behaald. Dit blijven opties om te implementeren in de toekomst. 
+
+Het huidige model heeft nog een aantal beperkingen. Zo is het momenteel niet mogelijk om bijvoorbeeld de poot van de fysieke hexapod te bewegen en dit terug te zien in het simulatiemodel. Die communicatie verloopt nu namelijk e\"e\"n richting op. 
+
+Daarnaast kwam het team er achter dat de huidige hardware (de robocontroller) toch nog een aantal beperkingen heeft. Zo bleek de ATMega moeite te hebben met het verwerken van de draadloze informatieoverdracht. Dit resulteerde in het falen van checksum en het traag reageren van de fysieke robot. Momenteel word iedere 20 milliseconde een update van de stand van de poten opgevraagd om een nog enig sinds vloeiende beweging te cre\"eeren. Achteraf gezien was het wellicht toch beter om een eigen "robocontroller' te ontwikkelen.
 
 
-\section{Onderzoeks opzet}
-Het project bestaat uit twee delen. Het eerste deel heeft als doel de hexapod in de simulatie te verwerken. Het tweede deel is ervoor zorgen dat er een verbinding ontstaat tussen de simulatie en de hexapod. 
-Vanwege de wensen van de opdrachtgever zal er gewerkt worden met het simulatie-programma V-REP en zullen andere softwarepakketten buiten beschouwing worden gelaten.  
-
-Daarnaast zal er in de eerste deel gekeken worden naar toepassingen die andere hebben bedacht voor de hexapod. Hieruit is inspiratie te halen voor handige en leuke toepassingen.
-
-Om de verbinding te maken tussen robot en computer dienen er verschillende bronnen te worden geraadpleegd. Een groot deel van die bronnen zal worden voorzien door gebruik te maken van het internet. Verder zal kennis die in de les wordt opgedaan, worden toegepast en de boeken kunnen worden bekeken.
-
-
-De hexapod is al fysiek aanwezig, wat het testen van geschreven code gemakkelijk maakt. Op deze manier wordt gelijk duidelijk of het geschreven programma functioneert. Tijdens het schrijven van de verschillende functies zal de hexapod fysiek aanwezig zijn om direct het resultaat te ondervinden.
 \newpage
 
-
-
-\iffalse % commentaar sectie
-\section{Firmware robot}
-Om de robot te besturen is er in het standaard model gebruik gemaakt van de Arbotix robocontroller. 
-Er is voor gekozen om niet de standaard software te gebruiken, maar vanaf de grond af aan eigen software te schrijven.
-
-\fi
 
 \section{Bijlage}
 
