@@ -96,17 +96,20 @@ De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
 \end{itemize}
 \fi
 
-\section{Theoretisch kader}
-Bij het gebruik van het simulatieprogramma V-rep, heeft het forum van de makers van het simulatieprogramma, coppeliarobotics, enorm geholpen. Er zijn allerlei handige tutorials te vinden en er is ook een handleiding voor de belangrijkste features. De makers zijn actief op de forums en kunnen eventuele vragen beantwoorden.
-
-\newpage
 \section{Specificaties}
 
 Voor de specificaties van dit project, is het van belang een onderscheid te maken tussen functionaliteiten die noodzakelijk of gewenst zijn bij het ontwerp. De noodzakelijke functies moeten in ieder geval ge\"implementeerd worden, terwijl het overige optioneel is, afhankelijk van de tijdrestrictie.
 
 \subsection{Noodzakeljke specificaties}
-Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. De datasnelheid van moet ook vastgesteld worden om de hexapod zo responsief mogelijk te maken. De hexapod moet aangestuurd kunnen worden door het simulatiemodel in het programma VREP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Het model moet in ieder geval bestaan uit een body en 6 ledematen. Ieder ledemaat moet onderverdeeld worden in drie hoofdcomponenten die gescheiden zijn door gewrichten en ook door middel van een gewricht zijn verbonden aan de body. Verder moeten de afmetingen en verhoudingen tot een halve centimeter nauwkeurigheid overeenkomen met de hexapod.
+Het primair doel van dit project is om een verbinding te cre\"eren tussen een fysieke robot hexapod en een simulatiemodel. De verbinding tussen hexapod en de computer dient draadloos te zijn ten gunste van de bewegingsvrijheid van de robot. De datasnelheid van moet ook vastgesteld worden om de hexapod zo responsief mogelijk te maken. De hexapod moet aangestuurd kunnen worden door het simulatiemodel in het programma V-REP. Veranderingen aan de stand van de poten moeten direct terug te zien zijn in het simulatiemodel. Het model moet in ieder geval bestaan uit een body en 6 ledematen. Ieder ledemaat moet onderverdeeld worden in drie hoofdcomponenten die gescheiden zijn door gewrichten en ook door middel van een gewricht zijn verbonden aan de body. Verder moeten de afmetingen en verhoudingen tot een halve centimeter nauwkeurigheid overeenkomen met de hexapod.
 Om te voorkomen dat de hexapod zichzelf kan beschadigen is het noodzakelijk dat de maximale bewegingsvrijheid van de gewrichten (per situatie) wordt uitgerekend of ingesteld. Zodat de poten onderling niet met elkaar botsen of dat de bekabeling beschadigd raakt.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{blockschematic-simple}
+    \caption{Versimpeld blokschema van de noodzakelijke specificaties}
+    \label{fig:blockschematic-simple}
+\end{figure}
 
 \subsection{Gewenste specificaties}
 Er zijn een veel mogelijkheden wat betreft additionele functies die ge\"implementeerd kunnen worden. In deze subsectie zijn een aantal functionaliteiten opgesomd die mogelijk ge\"implementeerd kunnen worden, maar die niet noodzakelijk zijn voor het uiteindelijke eindproduct.
@@ -386,12 +389,40 @@ Om dit allemaal in goede banen te leiden is er een  'XBee\_ communication\_ proc
 \lstinputlisting[language=C, numberfirstline=true, firstnumber=119 , firstline=77, lastline=146, style=cstyle, caption=XbeeCom.c - processSerialData functie, label={processSerialData}]{./source-code/XbeeCom.c}
 \newpage
 
+\section{Conclusie}
+Het doel van het onderzoek was het ontwikkelen van de besturing en simulatie van een hexapod robot. Als eerst zijn er specificaties opgesteld die voldeden aan de minimale eisen van de opdracht. Vervolgens zijn er additionele specificaties vastgesteld, waarmee de eigenschappen van het ontwerp kunnen worden uitgebreid. Om een ontwikkelomgeving te ontwerpen waarin een simulatie een fysiek model kan aansturen, is er van het ontwerp een eenvoudig blokschema opgesteld, zie figuur \ref{fig:blockschematic-simple}. Naarmate het onderzoek vorderde zijn er afzonderlijke delen van het ontwerp ge\"implementeerd. In figuur \ref{fig:blockschematic-spider} en \ref{fig:blockschematic-computer} is de samenhang van het volledige ontwerp ge\"illustreerd. In het hoofdstuk ontwerp wordt per onderdeel meer context gegeven over de reden waarom het op deze manier is ge\"implementeerd.
 
-\section{Discussie en resultaten}
+Er kan geconcludeerd worden dat de noodzakelijke specificaties zijn behaald en er daarom ook een antwoord is op de hoofdvraag van dit onderzoek. Het team is door problemen die uitgebreider omschreven zijn in het hierop volgende hoofdstuk, niet toegekomen aan de opgestelde additionele specificaties.
+\newpage
+
+\iffalse %commentaar sectie
+\textbf{Hoofdvraag\\}
+De hoofdvraag van het onderzoek betreft:
+Hoe wordt een ontwikkelingsomgeving opgezet waarbij een robot aan een simulatie gekoppeld wordt?
+
+\textbf{Deelvragen\\}
+De onderzoeksvraag is onder te verdelen in verschillende deelvragen:
+\begin{itemize}
+\setlength\itemsep{0em}
+\item Wat is een hexapod?
+\item Welke draadloze techniek kan het beste worden toegepast als communicatiemiddel?
+\item Wat zijn effici\"ente looppatronen voor een hexapod op verschillende oppervlakken?
+\item Is een hexapod in staat om zich voort te bewegen met één of meerdere beperkingen aan zijn poten?
+\item Zijn er effici\"entere looppatronen bij een zwaardere belasting van de hexapod?
+\item Zijn er verschillen tussen de simulatie en de werkelijkheid?
+\item Hoe detecteert de hexapod dat er een onmogelijke bewegingsactie uitgevoerd moet worden?
+\item Hoe verkent de hexapod zijn omgeving en onderscheid deze objecten van elkaar?
+\item Kan de robot zich voortbewegen ongeacht de orie\"entatie?
+\end{itemize}
+\fi
+
+\section{Resultaten en discussie}
 In de specificatie van dit raamwerk staan noodzakelijke en gewenste specificaties.
-Het primaire doel van het project was een verbinding cre\"eren tussen de fysieke hexapod en het simulatiemodel. Deze verbinding moest draadloos zijn om de hexapod niet te beperken in zijn bewegingsvrijheid. Het doel van deze verbinding was dat het simulatiemodel de fysieke robot kon aansturen. Vanwege deze reden was het van belang dat de maatgeving van de de modellen overeen kwamen met elkaar. Om te voorkomen dat de robot zichzelf zou beschadigen was het van belang dat het simulatiemodel geen onmogelijke commando's naar de fysieke robot zou sturen.
+Het primaire doel van het project was een verbinding cre\"eren tussen de fysieke hexapod en het simulatiemodel. Deze verbinding moest draadloos zijn om de hexapod niet te beperken in zijn bewegingsvrijheid. Het doel van deze verbinding was dat het simulatiemodel de fysieke robot kon aansturen. Vanwege deze reden was het van belang dat de maatgeving van de modellen overeen kwamen met elkaar. Om te voorkomen dat de robot zichzelf zou beschadigen was het van belang dat het simulatiemodel geen onmogelijke commando's naar de fysieke robot zou sturen.
 
-Alle bovengenoemde noodzakelijke specificaties zijn behaald. De hexapod kan draadloos aangestuurd worden vanuit het simulatiemodel en verricht exact de zelfde handeling. Het simulatiemodel is zo ingesteld dat het onmogelijk is gemaakt dat de robot zichzelf kan beschadigen door een verkeerde stuuractie. Daarnaast vinden er op verschillende plaatsen in de software checksums plaats die corrupte berichten filteren uit de informatieoverdracht.
+Het resultaat van het onderzoek is dat er een driedimensionaal model van een bestaande hexapod is gemaakt. Dit model is ge\"implementeerd in een simulatieomgeving, die het mogelijk maakt om het handmatig te bewegen. Met behulp van commando's vanuit een extern programma kan elk gewricht van de hexapod worden bestuurd. Dit programma is in staat om real-time de stand van de poten op te vragen vanuit de simulatieomgeving en deze informatie om te zetten naar bruikbare gegevens voor de hexapod. Tussen de hexapod en het externe systeem is een draadloze verbinding gemaakt met behulp van een adapter en XBee modules. De hexapod ontvangt van het externe systeem de huidige stand van elk gewricht vanuit het simulatiemodel.
+
+Alle noodzakelijke specificaties zijn behaald. De hexapod kan draadloos aangestuurd worden vanuit het simulatiemodel en verricht exact dezelfde handeling. Het simulatiemodel is zo ingesteld dat het onmogelijk is gemaakt dat de robot zichzelf kan beschadigen door een verkeerde stuuractie. Daarnaast vinden er op verschillende plaatsen in de software checksums plaats die corrupte berichten filteren uit de informatieoverdracht.
 
 De gewenste specificaties zijn door verschillende redenen niet gerealiseerd. Dat heeft te maken met de opgelopen vertraging door het weigeren of defect raken van hardware en problemen met het simulatiemodel.
 
@@ -399,7 +430,7 @@ De gewenste specificaties zijn door verschillende redenen niet gerealiseerd. Dat
 \section{Aanbevelingen}
 In het voorgaande hoofdstuk bleek dat niet alle gewenste specificaties zijn behaald. Dit blijven opties om te implementeren in de toekomst. 
 
-Het huidige model heeft nog een aantal beperkingen. Zo is het momenteel niet mogelijk om bijvoorbeeld de poot van de fysieke hexapod te bewegen en dit terug te zien in het simulatiemodel. Die communicatie verloopt nu namelijk e\"e\"n richting op. 
+Het huidige model heeft nog een aantal beperkingen. Zo is het momenteel niet mogelijk om bijvoorbeeld de poot van de fysieke hexapod te bewegen en dit terug te zien in het simulatiemodel. Die communicatie verloopt nu namelijk \'e\'en richting op. 
 
 Daarnaast kwam het team er achter dat de huidige hardware (de robocontroller) toch nog een aantal beperkingen heeft. Zo bleek de ATMega moeite te hebben met het verwerken van de draadloze informatieoverdracht. Dit resulteerde in het falen van checksum en het traag reageren van de fysieke robot. Momenteel word iedere 20 milliseconde een update van de stand van de poten opgevraagd om een nog enig sinds vloeiende beweging te cre\"eeren. Achteraf gezien was het wellicht toch beter om een eigen "robocontroller' te ontwikkelen.
 
